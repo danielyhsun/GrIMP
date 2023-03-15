@@ -71,6 +71,8 @@ public class CollageControllerImpl implements CollageController {
     knownCommands.put("new-project", s -> new NewProject(s.nextInt(), s.nextInt()));
     knownCommands.put("add-layer", s -> new AddLayer(s.next()));
     knownCommands.put("add-image-to-layer", s -> new AddImageToLayer(s.next(), s.next(), s.nextInt(), s.nextInt()));
+    knownCommands.put("save-project", s -> new SaveProject(s.next()));
+    knownCommands.put("save-image", s -> new SaveImage(s.next()));
 
     while (scan.hasNext()) {
       String s = scan.next();
