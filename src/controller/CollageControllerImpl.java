@@ -13,6 +13,7 @@ import controller.command.AddImageToLayer;
 import controller.command.AddLayer;
 import controller.command.LoadProject;
 import controller.command.NewProject;
+import controller.command.Quit;
 import controller.command.SaveImage;
 import controller.command.SaveProject;
 import controller.command.SetFilter;
@@ -82,6 +83,7 @@ public class CollageControllerImpl implements CollageController {
             s.nextInt(), s.nextInt()));
     knownCommands.put("save-project", s -> new SaveProject(s.next()));
     knownCommands.put("save-image", s -> new SaveImage(s.next()));
+    knownCommands.put("quit", s -> new Quit());
 
     while (scan.hasNext()) {
       String s = scan.next();

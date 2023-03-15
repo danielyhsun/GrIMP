@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 
 import model.CollageModel;
 import model.CollageModelImpl;
@@ -100,11 +101,16 @@ public class CollageControllerImplTest {
   }
 
   /**
-   * Tester method for rum method.
+   * Tests quit functionality of run method.
    */
   @Test
-  public void runWorks() {
+  public void testQuit() {
+    CollageModel model = new CollageModelImpl();
+    CollageView view = new CollageViewImpl(model);
+    Readable readable = new StringReader("new-project 100 100 quit");
+    CollageController controller = new CollageControllerImpl(model, view, readable);
 
+    controller.run();
   }
 
 }
