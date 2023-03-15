@@ -28,6 +28,6 @@ public class AddImageToLayer implements CollageCommand {
 
   @Override
   public String getMessage() {
-    return null;
+    return "Image from (" + filePath + ") added to " + layerName + " at " + x + " " + y;
   }
 }

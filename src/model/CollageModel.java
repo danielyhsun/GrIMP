@@ -12,7 +12,9 @@ public interface CollageModel {
 
   void setFilter(String layerName, String filterOption) throws IllegalStateException;
 
-  void saveProject(String filePath, String fileName) throws IOException;
+  void saveProject(String filePath) throws IOException;
 
-  void load(String filePath, String fileName);
+  void saveImage(String filePath) throws IOException;
+
+  void load(String filePath);
 }

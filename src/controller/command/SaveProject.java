@@ -7,16 +7,14 @@ import model.CollageModel;
 
 public class SaveProject implements CollageCommand {
   String filePath;
-  String fileName;
 
-  public SaveProject(String filePath, String fileName) {
+  public SaveProject(String filePath) {
     this.filePath = filePath;
-    this.fileName = fileName;
   }
 
   public void runCommand(CollageModel model) {
     try {
-      model.saveProject(filePath, fileName);
+      model.saveProject(filePath);
     } catch (IOException e) {
       //
     }
@@ -24,6 +22,6 @@ public class SaveProject implements CollageCommand {
 
   @Override
   public String getMessage() {
-    return null;
+    return "Project saved to: " + filePath;
   }
 }

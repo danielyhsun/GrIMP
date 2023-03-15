@@ -11,6 +11,8 @@ import controller.command.AddImageToLayer;
 import controller.command.AddLayer;
 import controller.command.LoadProject;
 import controller.command.NewProject;
+import controller.command.SaveImage;
+import controller.command.SaveProject;
 import controller.command.SetFilter;
 import model.CollageModel;
 import view.CollageView;
@@ -67,7 +69,7 @@ public class CollageControllerImpl implements CollageController {
     Map<String, Function<Scanner, CollageCommand>> knownCommands = new HashMap<>();
 
     knownCommands.put("set-filter", s -> new SetFilter(s.next(), s.next()));
-    knownCommands.put("load-project", s -> new LoadProject(s.next(), s.next()));
+    knownCommands.put("load-project", s -> new LoadProject(s.next()));
     knownCommands.put("new-project", s -> new NewProject(s.nextInt(), s.nextInt()));
     knownCommands.put("add-layer", s -> new AddLayer(s.next()));
     knownCommands.put("add-image-to-layer", s -> new AddImageToLayer(s.next(), s.next(), s.nextInt(), s.nextInt()));
@@ -83,7 +85,7 @@ public class CollageControllerImpl implements CollageController {
         try {
           String filePath = scan.next();
           String fileName = scan.next();
-          this.model.saveProject(filePath, fileName);
+          this.model.saveProject(filePath);
         } catch (IOException e) {
           tryRenderMsg("Unable to save project");
         }

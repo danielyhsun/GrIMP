@@ -48,18 +48,29 @@ public class CollageModelImpl implements CollageModel {
     this.currentProject.setFilter(layerName, filterOption);
   }
 
-  public void saveProject(String filePath, String fileName) throws IOException {
+  public void saveProject(String filePath) throws IOException {
     try {
-      FileWriter textInfo = new FileWriter(filePath);
+      FileWriter writer = new FileWriter(filePath);
       StringBuilder text = this.currentProject.writeToCollageFormat();
-      textInfo.write(String.valueOf(text));
-      textInfo.close();
+      writer.write(String.valueOf(text));
+      writer.close();
     } catch (IOException e) {
       throw new IOException("Could not save");
     }
   }
 
-  public void load(String filePath, String fileName) {
+  public void saveImage(String filePath) throws IOException {
+    try {
+      FileWriter writer = new FileWriter(filePath);
+
+      writer.write("P3\n");
+      writer.write(this);
+    } catch (IOException e) {
+      throw new IOException("Could not save image");
+    }
+  }
+
+  public void load(String filePath) {
     Scanner sc;
     StringBuilder str = new StringBuilder();
 

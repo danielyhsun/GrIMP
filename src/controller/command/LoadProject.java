@@ -5,20 +5,18 @@ import model.CollageModel;
 
 public class LoadProject implements CollageCommand {
   String filePath;
-  String fileName;
 
-  public LoadProject(String filePath, String fileName) {
+  public LoadProject(String filePath) {
     this.filePath = filePath;
-    this.fileName = fileName;
   }
 
   @Override
   public void runCommand(CollageModel model) {
-    model.load(filePath, fileName);
+    model.load(filePath);
   }
 
   @Override
   public String getMessage() {
-    return null;
+    return filePath + " was successfully loaded.";
   }
 }
