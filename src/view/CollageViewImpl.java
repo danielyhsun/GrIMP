@@ -44,7 +44,7 @@ public class CollageViewImpl implements CollageView {
    * Renders message to Appendable object.
    *
    * @param message represents what is being sent to Appendable.
-   * @throws IOException if cannot be transmitted.
+   * @throws IOException if the message cannot be transmitted.
    */
   @Override
   public void renderMessage(String message) throws IOException {

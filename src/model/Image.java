@@ -2,8 +2,12 @@ package model;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Represents
+ */
 public class Image {
   private String filePath;
   private int width;
@@ -18,15 +22,14 @@ public class Image {
     return pixels;
   }
 
-  public void readPPM() {
+  public void readPPM() throws IOException {
     Scanner sc;
 
     try {
       sc = new Scanner(new FileInputStream(filePath));
     }
     catch (FileNotFoundException e) {
-      System.out.println("File "+ filePath + " not found!");
-      return;
+      throw new IOException("File not found!");
     }
     StringBuilder builder = new StringBuilder();
     //read the file line by line, and populate a string. This will throw away any comment lines
@@ -51,16 +54,23 @@ public class Image {
     int height = sc.nextInt();
     System.out.println("Height of image: "+height);
     int maxValue = sc.nextInt();
-    System.out.println("Maximum value of a color in this file (usually 255): "+maxValue);
+    System.out.println("Maximum value of a color in this file (usually 255): " + maxValue);
 
-    pixels = new Pixel[height][width];
-
+    this.pixels = new Pixel[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        pixels[i][j].r =  sc.nextInt();
-        pixels[i][j].g =  sc.nextInt();
-        pixels[i][j].b =  sc.nextInt();
-        pixels[i][j].a = 100;
+        pixels[i][j] = new Pixel(0, 0, 0, 0);
+      }
+    }
+
+    while (sc.hasNextInt()) {
+      for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+          pixels[i][j].r = sc.nextInt();
+          pixels[i][j].g = sc.nextInt();
+          pixels[i][j].b = sc.nextInt();
+          pixels[i][j].a = 255;
+        }
       }
     }
   }

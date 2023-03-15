@@ -1,5 +1,7 @@
 package controller.command;
 
+import java.io.IOException;
+
 import controller.CollageCommand;
 import model.CollageModel;
 
@@ -22,7 +24,7 @@ public class AddImageToLayer implements CollageCommand {
    * @param model
    */
   @Override
-  public void runCommand(CollageModel model) {
+  public void runCommand(CollageModel model) throws IOException {
     model.addImageToLayer(layerName, filePath, x, y);
   }
 

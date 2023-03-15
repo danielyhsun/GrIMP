@@ -12,12 +12,9 @@ public class SaveProject implements CollageCommand {
     this.filePath = filePath;
   }
 
-  public void runCommand(CollageModel model) {
-    try {
+  @Override
+  public void runCommand(CollageModel model) throws IOException {
       model.saveProject(filePath);
-    } catch (IOException e) {
-      //
-    }
   }
 
   @Override

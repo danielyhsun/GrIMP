@@ -1,8 +1,10 @@
 package controller;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
+import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.function.Function;
@@ -15,6 +17,7 @@ import controller.command.SaveImage;
 import controller.command.SaveProject;
 import controller.command.SetFilter;
 import model.CollageModel;
+import model.CollageModelImpl;
 import view.CollageView;
 
 /**
@@ -28,11 +31,13 @@ public class CollageControllerImpl implements CollageController {
 
   /**
    * Constructor for controller implementation if given only model and view.
+   *
    * @param model represents model object for image processing.
-   * @param view represents view object for image processing.
+   * @param view  represents view object for image processing.
    * @throws IllegalArgumentException if either model or view object are null.
    */
-  public CollageControllerImpl(CollageModel model, CollageView view) throws IllegalArgumentException {
+  public CollageControllerImpl(CollageModel model, CollageView view)
+          throws IllegalArgumentException {
     if (model == null || view == null) {
       throw new IllegalArgumentException("Null objects given.");
     }
@@ -44,8 +49,9 @@ public class CollageControllerImpl implements CollageController {
 
   /**
    * Constructor for controller implementation if given model, view, and readable object.
-   * @param model represents model object for image processing.
-   * @param view represents view object for image processing.
+   *
+   * @param model    represents model object for image processing.
+   * @param view     represents view object for image processing.
    * @param readable represents input object.
    * @throws IllegalArgumentException if either model, view, or readable object are null.
    */
@@ -72,7 +78,8 @@ public class CollageControllerImpl implements CollageController {
     knownCommands.put("load-project", s -> new LoadProject(s.next()));
     knownCommands.put("new-project", s -> new NewProject(s.nextInt(), s.nextInt()));
     knownCommands.put("add-layer", s -> new AddLayer(s.next()));
-    knownCommands.put("add-image-to-layer", s -> new AddImageToLayer(s.next(), s.next(), s.nextInt(), s.nextInt()));
+    knownCommands.put("add-image-to-layer", s -> new AddImageToLayer(s.next(), s.next(),
+            s.nextInt(), s.nextInt()));
     knownCommands.put("save-project", s -> new SaveProject(s.next()));
     knownCommands.put("save-image", s -> new SaveImage(s.next()));
 
@@ -80,15 +87,7 @@ public class CollageControllerImpl implements CollageController {
       String s = scan.next();
       if (s.equalsIgnoreCase("q") || s.equalsIgnoreCase("quit")) {
         tryRenderMsg("Program quit");
-      }
-      if (s.equalsIgnoreCase("save-project")) {
-        try {
-          String filePath = scan.next();
-          String fileName = scan.next();
-          this.model.saveProject(filePath);
-        } catch (IOException e) {
-          tryRenderMsg("Unable to save project");
-        }
+        break;
       }
       CollageCommand c;
       Function<Scanner, CollageCommand> command = knownCommands.getOrDefault(s, null);
@@ -109,6 +108,30 @@ public class CollageControllerImpl implements CollageController {
         } catch (IllegalArgumentException e) {
           if (command == knownCommands.get("new-project")) {
             tryRenderMsg("Project dimensions can't be negative!");
+          }
+          if (command == knownCommands.get("load-project")) {
+            tryRenderMsg("Not a valid project file!");
+          }
+          if (command == knownCommands.get("set-filter")) {
+            tryRenderMsg("Invalid layer/filter!");
+          }
+        } catch (IOException e) {
+          if (command == knownCommands.get("load-project")) {
+            tryRenderMsg("File not found!");
+          }
+          if (command == knownCommands.get("add-image-to-layer")) {
+            tryRenderMsg("Image not found!");
+          }
+          if (command == knownCommands.get("save-project")) {
+            tryRenderMsg("Unable to save project!");
+          }
+          if (command == knownCommands.get("save-image")) {
+            tryRenderMsg("Unable to save image!");
+          }
+        } catch (InputMismatchException e) {
+          if (command == knownCommands.get("add-image-to-layer")) {
+            tryRenderMsg("Illegal Arguments! Appropriate usage is:\n"
+                    + "add-image-to-layer layer-name image-filepath x-value y-value");
           }
         }
       }

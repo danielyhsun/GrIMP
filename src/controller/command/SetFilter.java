@@ -14,6 +14,7 @@ public class SetFilter implements CollageCommand {
     this.filterOption = filterOption;
   }
 
+  @Override
   public void runCommand(CollageModel model) {
     model.setFilter(layerName, filterOption);
   }

@@ -1,5 +1,8 @@
 package controller.command;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import controller.CollageCommand;
 import model.CollageModel;
 
@@ -11,7 +14,7 @@ public class LoadProject implements CollageCommand {
   }
 
   @Override
-  public void runCommand(CollageModel model) {
+  public void runCommand(CollageModel model) throws IOException {
     model.load(filePath);
   }
 

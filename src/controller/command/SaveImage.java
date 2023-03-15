@@ -1,5 +1,7 @@
 package controller.command;
 
+import java.io.IOException;
+
 import controller.CollageCommand;
 import model.CollageModel;
 
@@ -11,7 +13,7 @@ public class SaveImage implements CollageCommand {
   }
 
   @Override
-  public void runCommand(CollageModel model) {
+  public void runCommand(CollageModel model) throws IOException {
     model.saveImage(filePath);
   }
 

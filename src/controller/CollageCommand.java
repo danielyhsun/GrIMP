@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import model.CollageModel;
 
 /**
@@ -10,8 +13,12 @@ public interface CollageCommand {
   /**
    * Runs command on image.
    */
-  void runCommand(CollageModel model);
+  void runCommand(CollageModel model) throws IOException;
 
+  /**
+   * Returns a message to be shown after a command is run.
+   * @return the message content
+   */
   String getMessage();
 
 }
