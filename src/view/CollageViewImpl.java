@@ -49,7 +49,7 @@ public class CollageViewImpl implements CollageView {
   @Override
   public void renderMessage(String message) throws IOException {
     try {
-      appendable.append(message);
+      appendable.append(message).append(System.lineSeparator());
     } catch (Exception e) {
       throw new IOException(e.getMessage());
     }

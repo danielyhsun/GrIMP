@@ -12,4 +12,6 @@ public interface CollageCommand {
    */
   void runCommand(CollageModel model);
 
+  String getMessage();
+
 }

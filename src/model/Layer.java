@@ -38,7 +38,7 @@ public class Layer {
 
   public void brightenValue() {
     for (int i = 0; i < pixels.length; i++) {
-      for (int j = 0; i < pixels[0].length; j++) {
+      for (int j = 0; j < pixels[0].length; j++) {
         int val = this.getValue(pixels[i][j].r, pixels[i][j].g, pixels[i][j].b);
         int r = pixels[i][j].r + val;
         int g = pixels[i][j].g + val;
@@ -51,7 +51,7 @@ public class Layer {
 
   public void brightenIntensity() {
     for (int i = 0; i < pixels.length; i++) {
-      for (int j = 0; i < pixels[0].length; j++) {
+      for (int j = 0; j < pixels[0].length; j++) {
         int avg = this.getIntensity(pixels[i][j].r, pixels[i][j].g, pixels[i][j].b);
         int r = pixels[i][j].r + avg;
         int g = pixels[i][j].g + avg;
@@ -64,7 +64,7 @@ public class Layer {
 
   public void brightenLuma() {
     for (int i = 0; i < pixels.length; i++) {
-      for (int j = 0; i < pixels[0].length; j++) {
+      for (int j = 0; j < pixels[0].length; j++) {
         int luma = this.getLuma(pixels[i][j].r, pixels[i][j].g, pixels[i][j].b);
         int r = pixels[i][j].r + luma;
         int g = pixels[i][j].g + luma;
@@ -77,7 +77,7 @@ public class Layer {
 
   public void darkenValue() {
     for (int i = 0; i < pixels.length; i++) {
-      for (int j = 0; i < pixels[0].length; j++) {
+      for (int j = 0; j < pixels[0].length; j++) {
         int val = this.getValue(pixels[i][j].r, pixels[i][j].g, pixels[i][j].b);
         int r = pixels[i][j].r - val;
         int g = pixels[i][j].g - val;
@@ -90,7 +90,7 @@ public class Layer {
 
   public void darkenIntensity() {
     for (int i = 0; i < pixels.length; i++) {
-      for (int j = 0; i < pixels[0].length; j++) {
+      for (int j = 0; j < pixels[0].length; j++) {
         int avg = this.getIntensity(pixels[i][j].r, pixels[i][j].g, pixels[i][j].b);
         int r = pixels[i][j].r - avg;
         int g = pixels[i][j].g - avg;
@@ -103,7 +103,7 @@ public class Layer {
 
   public void darkenLuma() {
     for (int i = 0; i < pixels.length; i++) {
-      for (int j = 0; i < pixels[0].length; j++) {
+      for (int j = 0; j < pixels[0].length; j++) {
         int luma = this.getLuma(pixels[i][j].r, pixels[i][j].g, pixels[i][j].b);
         int r = pixels[i][j].r - luma;
         int g = pixels[i][j].g - luma;
@@ -129,7 +129,7 @@ public class Layer {
 
   public void filterRed() {
     for (int i = 0; i < pixels.length; i++) {
-      for (int j = 0; i < pixels[0].length; j++) {
+      for (int j = 0; j < pixels[0].length; j++) {
         pixels[i][j] = new Pixel(pixels[i][j].r, 0, 0);
       }
     }
@@ -138,7 +138,7 @@ public class Layer {
 
   public void filterGreen() {
     for (int i = 0; i < pixels.length; i++) {
-      for (int j = 0; i < pixels[0].length; j++) {
+      for (int j = 0; j < pixels[0].length; j++) {
         pixels[i][j] = new Pixel(0, pixels[i][j].g, 0);
       }
     }
@@ -147,7 +147,7 @@ public class Layer {
 
   public void filterBlue() {
     for (int i = 0; i < pixels.length; i++) {
-      for (int j = 0; i < pixels[0].length; j++) {
+      for (int j = 0; j < pixels[0].length; j++) {
         pixels[i][j] = new Pixel(0, 0, pixels[i][j].b);
       }
     }
