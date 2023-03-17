@@ -55,7 +55,7 @@ public interface CollageModel {
    * @param filePath the designated file path for the saved project
    * @throws IOException if the file path is invalid
    */
-  void saveProject(String filePath) throws IOException;
+  void saveProject(String filePath) throws IOException, IllegalStateException;
 
   /**
    * Saves the current project collage as an image to a designated file location.
@@ -63,7 +63,7 @@ public interface CollageModel {
    * @param filePath the designated file path for the saved image
    * @throws IOException if the file path is invalid
    */
-  void saveImage(String filePath) throws IOException;
+  void saveImage(String filePath) throws IOException, IllegalStateException;
 
   /**
    * Loads a project from a project file with a given file location.

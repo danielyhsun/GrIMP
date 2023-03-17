@@ -67,7 +67,7 @@ public class CollageModelImpl implements CollageModel {
   public void addImageToLayer(String layerName, String filePath, int x, int y)
           throws IllegalStateException, IOException {
     if (currentProject == null) {
-      throw new IllegalStateException("No project is currently open");
+      throw new IllegalStateException("No project is currently open!");
     } else {
       currentProject.addImageToLayer(layerName, filePath, x, y);
     }
@@ -84,7 +84,7 @@ public class CollageModelImpl implements CollageModel {
   public void setFilter(String layerName, String filterOption) throws IllegalStateException,
           IllegalArgumentException {
     if (currentProject == null) {
-      throw new IllegalStateException("No project is currently open");
+      throw new IllegalStateException("No project is currently open!");
     }
     currentProject.setFilter(layerName, filterOption);
   }
@@ -95,7 +95,10 @@ public class CollageModelImpl implements CollageModel {
    * @throws IOException if the file path is invalid
    */
   @Override
-  public void saveProject(String filePath) throws IOException {
+  public void saveProject(String filePath) throws IOException, IllegalStateException {
+    if (currentProject == null) {
+      throw new IllegalStateException("No project is currently open!");
+    }
     try {
       FileWriter writer = new FileWriter(filePath);
       StringBuilder text = currentProject.writeToCollageFormat();
@@ -112,7 +115,10 @@ public class CollageModelImpl implements CollageModel {
    * @throws IOException if the file path is invalid
    */
   @Override
-  public void saveImage(String filePath) throws IOException {
+  public void saveImage(String filePath) throws IOException, IllegalStateException {
+    if (currentProject == null) {
+      throw new IllegalStateException("No project is currently open!");
+    }
     try {
       int height = currentProject.getCanvasHeight();
       int width = currentProject.getCanvasWidth();
@@ -134,7 +140,7 @@ public class CollageModelImpl implements CollageModel {
       writer.close();
 
     } catch (IOException e) {
-      throw new IOException("Could not save image");
+      throw new IOException("Unable to save image!");
     }
   }
 
@@ -182,7 +188,10 @@ public class CollageModelImpl implements CollageModel {
    * and loses all unsaved work.
    * @throws IllegalStateException if no project is currently open
    */
-  public void quitProject() {
+  public void quitProject() throws IllegalStateException {
+    if (currentProject == null) {
+      throw new IllegalStateException("No project is currently open!");
+    }
     currentProject = null;
   }
 }

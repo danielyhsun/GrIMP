@@ -10,19 +10,17 @@ import java.util.Scanner;
  */
 public class Image {
   private String filePath;
-  private int width;
-  private int height;
   private Pixel[][] pixels;
 
-  public Image(String filePath) {
+  protected Image(String filePath) {
     this.filePath = filePath;
   }
 
-  public Pixel[][] getPixels() {
+  protected Pixel[][] getPixels() {
     return pixels;
   }
 
-  public void readPPM() throws IOException {
+  protected void readPPM() throws IOException {
     Scanner sc;
 
     try {
