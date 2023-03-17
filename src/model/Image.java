@@ -6,20 +6,32 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Represents
+ * Represents image class.
  */
 public class Image {
   private String filePath;
   private Pixel[][] pixels;
 
+  /**
+   * Image object constructor.
+   * @param filePath
+   */
   protected Image(String filePath) {
     this.filePath = filePath;
   }
 
+  /**
+   * Get method for data structure holding pixels for image object.
+   * @return image represented by array of array of pixels.
+   */
   protected Pixel[][] getPixels() {
     return pixels;
   }
 
+  /**
+   * Reads in PPM file to create image using pixels.
+   * @throws IOException if file cannot be found.
+   */
   protected void readPPM() throws IOException {
     Scanner sc;
 
