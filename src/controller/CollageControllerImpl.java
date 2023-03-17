@@ -150,6 +150,11 @@ public class CollageControllerImpl implements CollageController {
     }
   }
 
+  /**
+   * Renders message to appendable object.
+   * @param message represents message to be appended.
+   * @throws RuntimeException if unable to transmit message.
+   */
   private void tryRenderMsg(String message) throws RuntimeException {
     try {
       this.view.renderMessage(message);

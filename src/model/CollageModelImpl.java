@@ -91,8 +91,8 @@ public class CollageModelImpl implements CollageModel {
 
   /**
    * Saves the currently open project to a formatted file with the given file location.
-   * @param filePath the designated file path for the saved project
-   * @throws IOException if the file path is invalid
+   * @param filePath the designated file path for the saved project.
+   * @throws IOException if the file path is invalid.
    */
   @Override
   public void saveProject(String filePath) throws IOException, IllegalStateException {
@@ -111,8 +111,8 @@ public class CollageModelImpl implements CollageModel {
 
   /**
    * Saves the current project collage as a ppm formatted image to a designated file location.
-   * @param filePath the designated file path for the saved image
-   * @throws IOException if the file path is invalid
+   * @param filePath the designated file path for the saved image.
+   * @throws IOException if the file path is invalid.
    */
   @Override
   public void saveImage(String filePath) throws IOException, IllegalStateException {
@@ -146,9 +146,9 @@ public class CollageModelImpl implements CollageModel {
 
   /**
    * Loads a project from a project file with a given file location.
-   * @param filePath the location of the project file to open
-   * @throws IOException if the file path is invalid
-   * @throws IllegalArgumentException if the file is not a properly formatted project file
+   * @param filePath the location of the project file to open.
+   * @throws IOException if the file path is invalid.
+   * @throws IllegalArgumentException if the file is not a properly formatted project file.
    */
   @Override
   public void load(String filePath) throws IOException, IllegalArgumentException {
