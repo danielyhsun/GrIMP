@@ -122,6 +122,18 @@ public class CollageControllerImpl implements CollageController {
           if (command == knownCommands.get("set-filter")) {
             tryRenderMsg("Could not set filter: No project currently open!");
           }
+          if (command == knownCommands.get("save-project")) {
+            tryRenderMsg("Could not save project: No project currently open!");
+          }
+          if (command == knownCommands.get("save-image")) {
+            tryRenderMsg("Could not save image: No project currently open!");
+          }
+          if (command == knownCommands.get("add-image-to-layer")) {
+            tryRenderMsg("Could not add image to layer: No project currently open!");
+          }
+          if (command == knownCommands.get("quit")) {
+            tryRenderMsg("Could not quit project: No project currently open!");
+          }
         } catch (IllegalArgumentException e) {
           if (command == knownCommands.get("new-project")) {
             tryRenderMsg("Project dimensions can't be negative!");
@@ -146,10 +158,7 @@ public class CollageControllerImpl implements CollageController {
             tryRenderMsg("Unable to save image!");
           }
         } catch (InputMismatchException e) {
-          if (command == knownCommands.get("add-image-to-layer")) {
-            tryRenderMsg("Illegal Arguments! Appropriate usage is:\n"
-                    + "add-image-to-layer layer-name image-filepath x-value y-value");
-          }
+          tryRenderMsg("Invalid Inputs!");
         }
       }
 
