@@ -33,8 +33,8 @@ public class Project {
   }
 
   /**
-   * Adds
-   * @param layerName
+   * Adds layer to project.
+   * @param layerName represents name of new layer.
    */
   protected void addLayer(String layerName) throws IllegalArgumentException {
     if (layerNames.containsKey(layerName)) {
@@ -50,6 +50,15 @@ public class Project {
     }
   }
 
+  /**
+   * Adds image to layer in project.
+   * @param layerName represents name of layer.
+   * @param filePath represents image.
+   * @param x
+   * @param y
+   * @throws IOException
+   * @throws IllegalArgumentException
+   */
   protected void addImageToLayer(String layerName, String filePath, int x, int y) throws IOException,
           IllegalArgumentException {
     if (!layerNames.containsKey(layerName)) {

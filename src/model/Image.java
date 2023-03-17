@@ -28,6 +28,10 @@ public class Image {
     return pixels;
   }
 
+  /**
+   * Reads in PPM file to create image using pixels.
+   * @throws IOException if file cannot be found.
+   */
   protected void readPPM() throws IOException {
     Scanner sc;
 
