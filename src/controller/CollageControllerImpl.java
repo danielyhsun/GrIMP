@@ -86,20 +86,35 @@ public class CollageControllerImpl implements CollageController {
     knownCommands.put("quit", s -> new Quit());
 
     while (scan.hasNext()) {
-      String s = scan.next();
-      if (s.equalsIgnoreCase("q") || s.equalsIgnoreCase("quit")) {
-        tryRenderMsg("Program quit");
-        break;
-      }
+      String s = scan.next().toLowerCase();
       CollageCommand c;
+      if (s.equals("q")) {
+        s = "quit";
+      }
       Function<Scanner, CollageCommand> command = knownCommands.getOrDefault(s, null);
       if (command == null) {
         tryRenderMsg(s + " is not a known command.");
       } else {
         try {
           c = command.apply(scan);
-          c.runCommand(this.model);
-          tryRenderMsg(c.getMessage());
+          if (command == knownCommands.get("quit")) {
+            String confirmation;
+            // keep asking for confirmation until input is either yes/no
+            do {
+              tryRenderMsg("Are you sure you want to quit? All unsaved work will be lost! (Yes/No):");
+              confirmation = scan.next().toLowerCase();
+            } while (!confirmation.equals("yes") && !confirmation.equals("no"));
+              if (confirmation.equals("yes")) {
+                c.runCommand(this.model);
+                tryRenderMsg(c.getMessage());
+              }
+              if (confirmation.equals("no")) {
+                tryRenderMsg("Project was not quit!");
+            }
+          } else {
+            c.runCommand(this.model);
+            tryRenderMsg(c.getMessage());
+          }
         } catch (IllegalStateException e) {
           if (command == knownCommands.get("add-layer")) {
             tryRenderMsg("Could not add layer: No project currently open!");

@@ -7,7 +7,7 @@ import model.CollageModelImpl;
 public class Quit implements CollageCommand {
 
   public void runCommand(CollageModel model) {
-    model = new CollageModelImpl();
+    model.quitProject();
   }
 
   public String getMessage() {

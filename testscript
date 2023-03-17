@@ -1,0 +1,11 @@
+new-project 800 600
+add-layer layer1
+set-filter layer1 filter-red
+add-image-to-layer layer1 tako.ppm 0 0
+save-image takored.ppm
+set-filter layer1 filter-blue
+save-image takoblue.ppm
+set-filter layer1 brighten-value
+save-image takobv.ppm
+set-filter layer1 darken-intensity
+save-image takodi.ppm

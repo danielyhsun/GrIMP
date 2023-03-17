@@ -176,4 +176,13 @@ public class CollageModelImpl implements CollageModel {
     newProject(height, width);
     currentProject.loadProject(sc, height, width);
   }
+
+  /**
+   * Quits the currently open project by setting the current project to null
+   * and loses all unsaved work.
+   * @throws IllegalStateException if no project is currently open
+   */
+  public void quitProject() {
+    currentProject = null;
+  }
 }

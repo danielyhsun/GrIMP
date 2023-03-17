@@ -72,14 +72,12 @@ public class Project {
     }
 
     layer.updatePixels(layerPixels);
-    layerNames.replace(layerName, layer);
   }
 
   protected void setFilter(String layerName, String filterOption) throws IllegalArgumentException {
     try {
-      Layer temp = layerNames.get(layerName);
-      temp.addFilter(filterOption);
-      layerNames.replace(layerName, temp);
+      Layer layer = layerNames.get(layerName);
+      layer.setFilter(filterOption);
     } catch (NullPointerException e) {
       throw new IllegalArgumentException("Layer not found!");
     }
@@ -135,7 +133,6 @@ public class Project {
       int layerNum = layers.get(layerNames.get(layerName));
       layer.updatePixels(temp);
       this.setFilter(layerName, filter);
-      layers.replace(layer, layerNum);
     }
   }
 
@@ -147,9 +144,13 @@ public class Project {
       }
     }
 
-    for (Map.Entry<Layer, Integer> entry : layers.entrySet()) {
-      Layer currentLayer = entry.getKey();
-      Pixel[][] layerPixels = currentLayer.getPixels();
+    for (Map.Entry<String, Layer> entry : layerNames.entrySet()) {
+      Layer currentLayer = entry.getValue();
+      Layer filteredLayer = new Layer(currentLayer.getName(), canvasHeight, canvasWidth);
+      filteredLayer.updatePixels(deepCopyPixels(currentLayer.getPixels()));
+      filteredLayer.setFilter(currentLayer.getFilterName());
+      filteredLayer.addFilter(filteredLayer.getFilterName());
+      Pixel[][] layerPixels = filteredLayer.getPixels();
 
       for (int i = 0; i < canvasHeight; i++) {
         for (int j = 0; j < canvasWidth; j++) {
@@ -173,6 +174,21 @@ public class Project {
       }
     }
     return finalImage;
+  }
+
+  private Pixel[][] deepCopyPixels(Pixel[][] originalPixels) {
+    int height = originalPixels.length;
+    int width = originalPixels[0].length;
+    Pixel[][] copiedPixels = new Pixel[height][width];
+
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        Pixel originalPixel = originalPixels[i][j];
+        copiedPixels[i][j] = new Pixel(originalPixel.r, originalPixel.g, originalPixel.b, originalPixel.a);
+      }
+    }
+
+    return copiedPixels;
   }
 
   protected int getCanvasHeight() {

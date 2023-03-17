@@ -1,6 +1,6 @@
 package model;
 
-public class Layer {
+public class Layer extends Project {
   private final String name;
   private String filterName;
   private Pixel[][] pixels;
@@ -17,19 +17,23 @@ public class Layer {
   }
 
   protected String getName() {
-    return this.name;
+    return name;
   }
 
   protected String getFilterName() {
-    return this.filterName;
+    return filterName;
   }
 
   protected Pixel[][] getPixels() {
-    return this.pixels;
+    return pixels;
   }
 
   protected void updatePixels(Pixel[][] newPixels) {
-    this.pixels = newPixels;
+    pixels = newPixels;
+  }
+
+  protected void setFilter(String filterOption) {
+    filterName = filterOption;
   }
 
   protected void addFilter(String filterOption) throws IllegalArgumentException {
@@ -77,7 +81,6 @@ public class Layer {
         pixels[i][j] = new Pixel(r, g, b, pixels[i][j].a);
       }
     }
-    this.filterName = filterOption;
   }
 
   private int getValue(int r, int g, int b) {

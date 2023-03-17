@@ -73,4 +73,10 @@ public interface CollageModel {
    * @throws IllegalArgumentException if the file is not a properly formatted project file
    */
   void load(String filePath) throws IOException, IllegalArgumentException;
+
+  /**
+   * Quits the currently open project and loses all unsaved work.
+   * @throws IllegalStateException if no project is currently open
+   */
+  void quitProject() throws IllegalStateException;
 }
