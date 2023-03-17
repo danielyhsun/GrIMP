@@ -1,6 +1,6 @@
 package model;
 
-public class Layer extends Project {
+public class Layer {
   private final String name;
   private String filterName;
   private Pixel[][] pixels;
