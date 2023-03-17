@@ -6,23 +6,25 @@ import controller.CollageCommand;
 import model.CollageModel;
 
 /**
- * Command class for save-image command.
+ * Represents a command object to execute a method to save an image in the model.
  */
 public class SaveImage implements CollageCommand {
   String filePath;
 
   /**
-   * Save image command constructor.
-   * @param filePath represents file path of image.
+   * Constructor to create a SaveImage object.
+   *
+   * @param filePath the location to save the image to
    */
   public SaveImage(String filePath) {
     this.filePath = filePath;
   }
 
   /**
-   * Executes save image command.
-   * @param model represents model object.
-   * @throws IOException if the file path is invalid.
+   * Runs the saveImage() method on the model with the given inputs.
+   *
+   * @param model the model.
+   * @throws IOException if the filePath is invalid
    */
   @Override
   public void runCommand(CollageModel model) throws IOException {
@@ -30,8 +32,9 @@ public class SaveImage implements CollageCommand {
   }
 
   /**
-   * Builds message for save image command.
-   * @return string telling user that image has been saved to file path.
+   * Returns a string message associated with this command.
+   *
+   * @return a string message associated with this command
    */
   @Override
   public String getMessage() {

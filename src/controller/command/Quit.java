@@ -2,23 +2,26 @@ package controller.command;
 
 import controller.CollageCommand;
 import model.CollageModel;
+import model.CollageModelImpl;
 
 /**
- * Command class for quit command.
+ * Represents a command object to execute a method to quit a project in the model.
  */
 public class Quit implements CollageCommand {
 
   /**
-   * Executes quit command.
-   * @param model represents model for program.
+   * Runs the quitProject() method on the model.
+   *
+   * @param model the model
    */
   public void runCommand(CollageModel model) {
     model.quitProject();
   }
 
   /**
-   * Builds message for quit command.
-   * @return message letting user know that program has been quit.
+   * Returns a string message associated with this command.
+   *
+   * @return a string message associated with this command
    */
   public String getMessage() {
     return "Project has been quit";

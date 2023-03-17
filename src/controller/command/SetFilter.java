@@ -1,20 +1,22 @@
 package controller.command;
 
+import java.io.IOException;
 
 import controller.CollageCommand;
 import model.CollageModel;
 
 /**
- * Command class for set filer command.
+ * Represents a command object to execute a method to set a layer's filter in the model.
  */
 public class SetFilter implements CollageCommand {
   String layerName;
   String filterOption;
 
   /**
-   * Set filter command constructor.
-   * @param layerName represents name of layer to be filtered.
-   * @param filterOption represents what type of filter is being applied to layer.
+   * Constructor to create a SetFilter object.
+   *
+   * @param layerName the given layer name
+   * @param filterOption the given filter option
    */
   public SetFilter(String layerName, String filterOption) {
     this.layerName= layerName;
@@ -22,8 +24,9 @@ public class SetFilter implements CollageCommand {
   }
 
   /**
-   * Executes filter command on layer.
-   * @param model represents model for current program.
+   * Runs the setFilter() method on the model with the given inputs.
+   *
+   * @param model the model
    */
   @Override
   public void runCommand(CollageModel model) {
@@ -31,8 +34,9 @@ public class SetFilter implements CollageCommand {
   }
 
   /**
-   * Builds message for set filter command.
-   * @return message describing what filter has been used and to what layer.
+   * Returns a string message associated with this command.
+   *
+   * @return a string message associated with this command
    */
   @Override
   public String getMessage() {

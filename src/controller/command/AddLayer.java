@@ -4,23 +4,24 @@ import controller.CollageCommand;
 import model.CollageModel;
 
 /**
- * Command class for adding layers to project.
+ * Represents a command object to execute a method to add a new layer in the model.
  */
 public class AddLayer implements CollageCommand {
   String layerName;
 
   /**
-   * Add layer constructor.
-   * @param layerName name of layer to add.
+   * Constructor to create an AddLayer object.
+   *
+   * @param layerName the given name of the layer to be created
    */
   public AddLayer(String layerName) {
     this.layerName = layerName;
   }
 
   /**
-   * Runs command on image.
+   * Runs the addLayer() method on the model with the given input.
    *
-   * @param model represents the current model object containing the project.
+   * @param model the model
    */
   @Override
   public void runCommand(CollageModel model) {
@@ -28,8 +29,9 @@ public class AddLayer implements CollageCommand {
   }
 
   /**
-   * States that this class is for adding layers.
-   * @return that a new layer has been added as a string.
+   * Returns a string message associated with this command.
+   *
+   * @return a string message associated with this command
    */
   @Override
   public String getMessage() {

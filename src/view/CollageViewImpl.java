@@ -13,6 +13,7 @@ public class CollageViewImpl implements CollageView {
 
   /**
    * Constructor for view implementation that takes in only the model.
+   *
    * @param model represents image processing model.
    * @throws IllegalArgumentException if given null model.
    */
@@ -27,6 +28,7 @@ public class CollageViewImpl implements CollageView {
 
   /**
    * Constructor for view implementation if given both model and appendable object.
+   *
    * @param model represents image processing model.
    * @param appendable represents appendable object.
    * @throws IllegalArgumentException if given null model or null appendable.

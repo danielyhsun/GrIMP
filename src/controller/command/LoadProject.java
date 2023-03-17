@@ -1,28 +1,30 @@
 package controller.command;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import controller.CollageCommand;
 import model.CollageModel;
 
 /**
- * Represents command class for loading project.
+ * Represents a command object to execute a method to load a project file in the model.
  */
 public class LoadProject implements CollageCommand {
   String filePath;
 
   /**
-   * Load project constructor.
-   * @param filePath represents file path of project.
+   * Constructor to create a LoadProject object.
+   *
+   * @param filePath the location of the project file to be loaded
    */
   public LoadProject(String filePath) {
     this.filePath = filePath;
   }
 
   /**
-   * Loads project into project.
-   * @param model represents current model holding project.
-   * @throws IOException if the file path is invalid.
+   * Runs the load() method on the model with the given input.
+   *
+   * @param model the model
    */
   @Override
   public void runCommand(CollageModel model) throws IOException {
@@ -30,8 +32,9 @@ public class LoadProject implements CollageCommand {
   }
 
   /**
-   * States that the file path was loaded into program.
-   * @return string message that file was loaded.
+   * Returns a string message associated with this command.
+   *
+   * @return a string message associated with this command
    */
   @Override
   public String getMessage() {

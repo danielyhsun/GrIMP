@@ -6,12 +6,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * Represents a Project in a Collage Program.
- * Projects can have Layers and each Project has a set canvas height and width.
+ * Represents a Project in a Collage Program consisting of multiple layers with images and filters.
+ * Provides methods for manipulation of layers and images.
+ * A Project has a fixed canvas size, determined at the time of instantiation,
+ * and supports a custom format for saving and loading projects.
  */
 public class Project {
-
-  protected HashMap<Layer, Integer> layers;
   protected HashMap<String, Layer> layerNames;
   protected static int MAX_CLAMP = 255;
   private final int canvasHeight;
@@ -28,36 +28,44 @@ public class Project {
   protected Project(int canvasHeight, int canvasWidth) {
     this.canvasHeight = canvasHeight;
     this.canvasWidth = canvasWidth;
-    this.layers = new HashMap<>();
     this.layerNames = new HashMap<>();
+    this.addLayer("bg");
   }
 
   /**
-   * Adds layer to project.
-   * @param layerName represents name of new layer.
+   * Adds a new Layer to the current project. Maps each Layer to its unique layerName identifier,
+   * and gives it the same height and width as the project canvas.
+   * If the given layerName is "bg", a new background Layer using the background Layer
+   * constructor is created.
+   * A Layer must have a unique name, two layers with the same not cannot exist in the same project
+   *
+   * @param layerName a unique identifier for each layer
+   * @throws IllegalArgumentException if a Layer with the given layerName already exists in
+   *                                  the project.
    */
   protected void addLayer(String layerName) throws IllegalArgumentException {
     if (layerNames.containsKey(layerName)) {
       throw new IllegalArgumentException("Layer name already taken!");
     }
-    int layerNum = layers.size();
-
-    layers.put(new Layer(layerName, canvasHeight, canvasWidth), layerNum);
-    for (Map.Entry<Layer, Integer> entry : layers.entrySet()) {
-      if (entry.getValue() == layerNum) {
-        layerNames.put(layerName, entry.getKey());
-      }
+    if (layerName.equals("bg")) {
+      layerNames.put("bg", new Layer(canvasHeight, canvasWidth));
+    } else {
+      layerNames.put(layerName, new Layer(layerName, canvasHeight, canvasWidth));
     }
   }
 
   /**
-   * Adds image to layer in project.
-   * @param layerName represents name of layer.
-   * @param filePath represents image.
-   * @param x
-   * @param y
-   * @throws IOException
-   * @throws IllegalArgumentException
+   * Adds an image from a specified file path to the layer of the specified name with an offset of
+   * x and y from the top left corner of the canvas.
+   * The Image must be in ppm format.
+   *
+   * @param layerName the name of the layer where the image is to be added
+   * @param filePath  the location of the image file
+   * @param x         the image's x-offset from the layer's top-left corner
+   * @param y         the image's y-offset from the layer's top-left corner
+   * @throws IOException              if the path to the image file is invalid
+   *                                  OR the image is not in the correct format
+   * @throws IllegalArgumentException if a layer with the given layerName does not exist
    */
   protected void addImageToLayer(String layerName, String filePath, int x, int y) throws IOException,
           IllegalArgumentException {
@@ -83,6 +91,15 @@ public class Project {
     layer.updatePixels(layerPixels);
   }
 
+  /**
+   * Sets the filter for a given layer with a given filter name. Retrieves the specified
+   * layer by its name and attempts to apply the specified filter. If the layer or the filter is
+   * invalid, an IllegalArgumentException is thrown.
+   *
+   * @param layerName    the name of the layer that the filter is being applied onto
+   * @param filterOption the name of the filter that is being applied
+   * @throws IllegalArgumentException if the layer or filter is invalid
+   */
   protected void setFilter(String layerName, String filterOption) throws IllegalArgumentException {
     try {
       Layer layer = layerNames.get(layerName);
@@ -92,6 +109,23 @@ public class Project {
     }
   }
 
+  /**
+   * Writes the current state of the project to a StringBuilder in a custom collage format.
+   * The format includes metadata about the canvas size, layers, filter names, and pixel values.
+   * This format is intended for saving the project to a file and loading it back later.
+   * <p></p>
+   * The format is structured as follows:
+   * - First line: "C1"
+   * - Second line: canvasWidth and canvasHeight, separated by a space
+   * - Third line: the maximum clamp value (MAX_CLAMP)
+   * - For each layer:
+   * - Layer name and filter name, separated by a space
+   * - For each pixel in the layer:
+   * - Pixel's red, green, blue, and alpha values, separated by spaces
+   * - A newline character at the end of each row of pixels
+   *
+   * @return a StringBuilder containing the project data in the custom collage format
+   */
   protected StringBuilder writeToCollageFormat() {
     StringBuilder content = new StringBuilder();
 
@@ -116,6 +150,18 @@ public class Project {
     return content;
   }
 
+  /**
+   * Loads a project from a given Scanner containing project data in the custom collage format.
+   * The method reads the data from the Scanner, recreates the layers with their respective
+   * filter names, and populates the layers with pixel data. The project dimensions (height and width)
+   * are provided as arguments and should match the dimensions specified in the input data.
+   *
+   * @param sc     a Scanner containing the project data in the custom collage format
+   * @param height the height of the project canvas
+   * @param width  the width of the project canvas
+   * @throws IllegalStateException    if the data in the Scanner does not follow the expected format
+   * @throws IllegalArgumentException if the layer or filter is invalid
+   */
   protected void loadProject(Scanner sc, int height, int width) {
     while (sc.hasNext()) {
       String layerName = sc.next();
@@ -139,12 +185,23 @@ public class Project {
         }
       }
       Layer layer = layerNames.get(layerName);
-      int layerNum = layers.get(layerNames.get(layerName));
       layer.updatePixels(temp);
       this.setFilter(layerName, filter);
     }
   }
 
+  /**
+   * Combines all the layers in the current project into a single Pixel[][] array, which represents
+   * the final image. This method initializes the final image array with a transparent background
+   * (white color with 0 alpha value) and iterates through the layers, applying their pixel data
+   * on top of the final image. This method is called when exporting the final image.
+   * <p></p>
+   * Note that this method does not consider the filter applied to each layer. Make sure to apply
+   * the filters to the layers before calling this method if you want the final image to include
+   * the filtered appearance of the layers.
+   *
+   * @return a Pixel[][] array representing the final image obtained by merging all layers
+   */
   protected Pixel[][] layersToImage() {
     Pixel[][] finalImage = new Pixel[canvasHeight][canvasWidth];
     for (int i = 0; i < canvasHeight; i++) {
@@ -185,6 +242,7 @@ public class Project {
     return finalImage;
   }
 
+  // create a deep copy of a Pixel[][] to apply operations without affecting the original
   private Pixel[][] deepCopyPixels(Pixel[][] originalPixels) {
     int height = originalPixels.length;
     int width = originalPixels[0].length;
@@ -200,10 +258,20 @@ public class Project {
     return copiedPixels;
   }
 
+  /**
+   * Returns this project's canvas height.
+   *
+   * @return the project's canvas height
+   */
   protected int getCanvasHeight() {
     return this.canvasHeight;
   }
 
+  /**
+   * Returns this project's canvas width.
+   *
+   * @return the project's canvas width
+   */
   protected int getCanvasWidth() {
     return this.canvasWidth;
   }

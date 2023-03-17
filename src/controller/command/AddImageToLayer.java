@@ -6,7 +6,7 @@ import controller.CollageCommand;
 import model.CollageModel;
 
 /**
- * Command class for add image to layer.
+ * Represents a command object to execute a method to add an image to a layer in the model.
  */
 public class AddImageToLayer implements CollageCommand {
   String layerName;
@@ -15,11 +15,12 @@ public class AddImageToLayer implements CollageCommand {
   int y;
 
   /**
-   * Add image to layer constructor.
-   * @param layerName is the name of the layer to be worked on.
-   * @param filePath is the image.
-   * @param x represents the
-   * @param y
+   * Constructor to create a SetFilter object.
+   *
+   * @param layerName the given layer name
+   * @param filePath the location of the image
+   * @param x the x offset from the top-left corner of the layer
+   * @param y the y offset from the top-left corner of the layer
    */
   public AddImageToLayer(String layerName, String filePath, int x, int y) {
     this.layerName = layerName;
@@ -29,15 +30,20 @@ public class AddImageToLayer implements CollageCommand {
   }
 
   /**
-   * Runs command on image.
+   * Runs the addImageToLayer() method on the model with the given inputs.
    *
-   * @param model
+   * @param model the model
    */
   @Override
   public void runCommand(CollageModel model) throws IOException {
     model.addImageToLayer(layerName, filePath, x, y);
   }
 
+  /**
+   * Returns a string message associated with this command.
+   *
+   * @return a string message associated with this command
+   */
   @Override
   public String getMessage() {
     return "Image from (" + filePath + ") added to " + layerName + " at " + x + " " + y;

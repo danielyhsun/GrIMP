@@ -4,7 +4,7 @@ import controller.CollageCommand;
 import model.CollageModel;
 
 /**
- * Command class for new project command.
+ * Represents a command object to execute a method to create a new project in the model.
  */
 public class NewProject implements CollageCommand {
 
@@ -12,9 +12,10 @@ public class NewProject implements CollageCommand {
   int canvasWidth;
 
   /**
-   * New project constructor.
-   * @param canvasHeight represents height of project.
-   * @param canvasWidth represents width of project.
+   * Constructor to create a NewProject object.
+   *
+   * @param canvasHeight the given canvas height
+   * @param canvasWidth the given canvas width
    */
   public NewProject(int canvasHeight, int canvasWidth) {
     this.canvasHeight = canvasHeight;
@@ -22,16 +23,18 @@ public class NewProject implements CollageCommand {
   }
 
   /**
-   * Executes new project command.
-   * @param model represents model that is running program.
+   * Runs the newProject() method on the model with the given inputs.
+   *
+   * @param model the model
    */
   public void runCommand(CollageModel model) {
     model.newProject(canvasHeight, canvasWidth);
   }
 
   /**
-   * Builds message describing that project has been created.
-   * @return string message stating project has been created.
+   * Returns a string message associated with this command.
+   *
+   * @return a string message associated with this command
    */
   public String getMessage() {
     return "New " + canvasHeight + "x" + canvasWidth + " project created";

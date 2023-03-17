@@ -6,31 +6,37 @@ import java.io.IOException;
 import java.util.Scanner;
 
 /**
- * Represents image class.
+ * Represents an Image that is composed of a 2D array of pixels, created by reading the pixel data
+ * from a PPM image file of a given file path.
  */
 public class Image {
   private String filePath;
   private Pixel[][] pixels;
 
   /**
-   * Image object constructor.
-   * @param filePath
+   * Constructor to create a new Image object with a given image filePath as a String.
+   *
+   * @param filePath the image's file location represented as a String
    */
   protected Image(String filePath) {
     this.filePath = filePath;
   }
 
   /**
-   * Get method for data structure holding pixels for image object.
-   * @return image represented by array of array of pixels.
+   * Returns the layer's 2D array of pixels.
+   *
+   * @return the layer's 2D array of pixels.
    */
   protected Pixel[][] getPixels() {
     return pixels;
   }
 
   /**
-   * Reads in PPM file to create image using pixels.
-   * @throws IOException if file cannot be found.
+   * Reads a PPM image file from the specified file path and stores the pixel data in the 'pixels'
+   * array. The method expects a plain P3 PPM format and ignores comment lines. An IOException is
+   * thrown if the file is not found or if there is an issue with reading the file.
+   *
+   * @throws IOException if the file is not found or if there is an issue with reading the file
    */
   protected void readPPM() throws IOException {
     Scanner sc;
