@@ -2,7 +2,6 @@ package controller.command;
 
 import controller.CollageCommand;
 import model.CollageModel;
-import model.CollageModelImpl;
 
 /**
  * Represents a command object to execute a method to quit a project in the model.

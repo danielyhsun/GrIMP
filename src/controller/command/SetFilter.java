@@ -1,7 +1,5 @@
 package controller.command;
 
-import java.io.IOException;
-
 import controller.CollageCommand;
 import model.CollageModel;
 

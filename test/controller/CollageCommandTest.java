@@ -1,13 +1,10 @@
 package controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import controller.command.AddImageToLayer;
 import controller.command.AddLayer;
@@ -18,6 +15,9 @@ import controller.command.SaveProject;
 import controller.command.SetFilter;
 import model.CollageModel;
 import model.CollageModelImpl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CollageCommandTest {
   private CollageModel model;
@@ -110,7 +110,7 @@ public class CollageCommandTest {
   @Test
   public void testSaveImage() throws IOException {
     model.newProject(400, 300);
-    String filePath = "test_image_save.png";
+    String filePath = "test.ppm";
     CollageCommand command = new SaveImage(filePath);
     command.runCommand(model);
     assertEquals("Saved as image to: " + filePath, command.getMessage());
@@ -155,7 +155,7 @@ public class CollageCommandTest {
   @Test
   public void testAddImageToLayer() throws IOException {
     model.addLayer("layer1");
-    String imagePath = "tako.ppm";
+    String imagePath = "res/grogu.ppm";
     CollageCommand command = new AddImageToLayer("layer1", imagePath, 0, 0);
     command.runCommand(model);
     assertEquals("Image from (" + imagePath + ") added to layer1 at 0 0", command.getMessage());
@@ -163,7 +163,7 @@ public class CollageCommandTest {
 
   @Test(expected = IllegalArgumentException.class)
   public void testAddImageToLayerInvalidLayer() throws IOException {
-    String imagePath = "tako.ppm";
+    String imagePath = "res/grogu.ppm";
     CollageCommand command = new AddImageToLayer("nonexistentLayer", imagePath, 0, 0);
     command.runCommand(model);
   }

@@ -1,6 +1,5 @@
 package controller.command;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import controller.CollageCommand;

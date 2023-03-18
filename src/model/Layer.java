@@ -86,7 +86,7 @@ public class Layer {
    */
   protected void setFilter(String filterOption) throws IllegalArgumentException {
     if (!(filterOption.contains("brighten") || filterOption.contains("darken")
-            || filterOption.contains("filter"))) {
+            || filterOption.contains("filter") || filterOption.contains("Normal"))) {
       throw new IllegalArgumentException();
     }
     filterName = filterOption;

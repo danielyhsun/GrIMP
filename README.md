@@ -8,15 +8,15 @@ Collage class: Contains the main method where the program is started.
 ---
 
 ### Model:
-**Pixel class:** Represents a 4-component RGBA value composed of integers representing the red, green,
-and alpha channels of a pixel. 
+**Pixel class:** Represents a 4-component RGBA value composed of integers representing the red, 
+green, and alpha channels of a pixel. 
 
 **Image class:** The model's representation of an image made of a 2D array of Pixels. 
 
-**Layer class:** Represents a layer in a Collage Project. A layer has a name to identify it, a 2D array
-of Pixels, and a filter option to specify image processing operations done to its Pixel array when 
-saving as an image or displaying an Image representation in the view. By default, a non-background
-Layer will be white/transparent, with all Pixel values being (255, 255, 255, 0).
+**Layer class:** Represents a layer in a Collage Project. A layer has a name to identify it, a 2D 
+array of Pixels, and a filter option to specify image processing operations done to its Pixel array
+when saving as an image or displaying an Image representation in the view. By default, a 
+non-background Layer will be white/transparent, with all Pixel values being (255, 255, 255, 0).
 
 **Project class:** Represents a project in a Collage program. A Project is composed of a collection
 of layers, and contain methods for manipulating them. By default, Projects always have at least
@@ -56,3 +56,17 @@ the method for rendering messages to the user.
 
 **CollageViewImpl class:** A class implementing the CollageView interface, which displays messages 
 to the user via the Appendable object. 
+
+---
+
+### How To Use:
+To use the collage program, run the main() method in the Collage class. When the program runs,
+you can either type or copy and paste the script into the console. 
+
+---
+
+### Citations:
+**Grogu Image:**
+TVLine. (2020). Luke Skywalker and Grogu in The Mandalorian Finale. [Digital image]. 
+Retrieved March 18, 2023, from 
+https://tvline.com/wp-content/uploads/2020/12/mandalorian-finale-luke-skywalker-grogu.png?w=620&h=420&crop=1

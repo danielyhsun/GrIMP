@@ -6,7 +6,6 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 public class ProjectTest {
@@ -37,8 +36,8 @@ public class ProjectTest {
     project.addLayer("Layer1");
 
     try {
-      project.addImageToLayer("Layer1", "tako.ppm", 0, 0);
-      Image image = new Image("tako.ppm");
+      project.addImageToLayer("Layer1", "grogu.ppm", 0, 0);
+      Image image = new Image("grogu.ppm");
       image.readPPM();
       assertEquals(project.layerNames.get("Layer1").getPixels(), image.getPixels());
     } catch (IOException e) {

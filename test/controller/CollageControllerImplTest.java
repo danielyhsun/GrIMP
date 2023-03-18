@@ -1,11 +1,7 @@
 package controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
 import org.junit.Test;
 
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 
@@ -13,6 +9,9 @@ import model.CollageModel;
 import model.CollageModelImpl;
 import view.CollageView;
 import view.CollageViewImpl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 /**
  * Test class for controller implementation.
@@ -173,12 +172,12 @@ public class CollageControllerImplTest {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
     CollageView view = new CollageViewImpl(model, appendable);
-    Readable readable = new StringReader("new-project 100 100 add-layer layer add-image-to-layer layer tako.ppm 0 0");
+    Readable readable = new StringReader("new-project 100 100 add-layer layer add-image-to-layer layer res/grogu.ppm 0 0");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
     controller.run();
 
-    assertEquals("New 100x100 project created\nNew layer (layer) added\nImage from (tako.ppm) added to layer at 0 0\n", appendable.toString());
+    assertEquals("New 100x100 project created\nNew layer (layer) added\nImage from (res/grogu.ppm) added to layer at 0 0\n", appendable.toString());
   }
 
   /**
@@ -205,13 +204,13 @@ public class CollageControllerImplTest {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
     CollageView view = new CollageViewImpl(model, appendable);
-    Readable readable = new StringReader("new-project 100 100 add-layer layer add-image-to-layer 0 0 layer tako.ppm");
+    Readable readable = new StringReader("new-project 100 100 add-layer layer add-image-to-layer 0 0 layer res/grogu.ppm");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
     controller.run();
 
     assertEquals("New 100x100 project created\nNew layer (layer) added\nInvalid Inputs!\nlayer is not a known command.\n" +
-            "tako.ppm is not a known command.\n", appendable.toString());
+            "res/grogu.ppm is not a known command.\n", appendable.toString());
   }
 
   /**
@@ -320,12 +319,12 @@ public class CollageControllerImplTest {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
     CollageView view = new CollageViewImpl(model, appendable);
-    Readable readable = new StringReader("new-project 100 100 save-image takodi.ppm");
+    Readable readable = new StringReader("new-project 100 100 save-image grogudi.ppm");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
     controller.run();
 
-    assertEquals("New 100x100 project created\nSaved as image to: takodi.ppm\n", appendable.toString());
+    assertEquals("New 100x100 project created\nSaved as image to: grogudi.ppm\n", appendable.toString());
   }
 
   /**
@@ -400,12 +399,12 @@ public class CollageControllerImplTest {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
     CollageView view = new CollageViewImpl(model, appendable);
-    Readable readable = new StringReader("new-project 100 100 save-image takodi.ppm load-project takodi.ppm");
+    Readable readable = new StringReader("new-project 100 100 save-image grogudi.ppm load-project grogudi.ppm");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
     controller.run();
 
-    assertEquals("New 100x100 project created\nSaved as image to: takodi.ppm\nNot a valid project file!\n", appendable.toString());
+    assertEquals("New 100x100 project created\nSaved as image to: grogudi.ppm\nNot a valid project file!\n", appendable.toString());
   }
 
   /**

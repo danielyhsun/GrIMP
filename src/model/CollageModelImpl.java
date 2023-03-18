@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
+
 import static model.Project.MAX_CLAMP;
 
 /**
@@ -48,6 +49,8 @@ public class CollageModelImpl implements CollageModel {
   public void addLayer(String layerName) throws IllegalStateException {
     if (currentProject == null) {
       throw new IllegalStateException("No project is currently open");
+    } else if (layerName.equals("bg")) {
+      // do nothing
     } else {
       this.currentProject.addLayer(layerName);
     }

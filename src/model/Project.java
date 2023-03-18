@@ -44,11 +44,10 @@ public class Project {
    *                                  the project.
    */
   protected void addLayer(String layerName) throws IllegalArgumentException {
-    if (layerNames.containsKey(layerName)) {
-      throw new IllegalArgumentException("Layer name already taken!");
-    }
     if (layerName.equals("bg")) {
       layerNames.put("bg", new Layer(canvasHeight, canvasWidth));
+    } else if (layerNames.containsKey(layerName)) {
+      throw new IllegalArgumentException("Layer name already taken!");
     } else {
       layerNames.put(layerName, new Layer(layerName, canvasHeight, canvasWidth));
     }

@@ -1,18 +1,14 @@
 package view;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
 import org.junit.Test;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.StringReader;
 
 import model.CollageModel;
 import model.CollageModelImpl;
-import view.CollageView;
-import view.CollageViewImpl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 
 /**

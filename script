@@ -1,0 +1,10 @@
+new-project 417 500
+add-layer grogublue
+add-image-to-layer grogublue res/grogu.ppm 0 0
+set-filter grogublue filter-blue
+save-image grogublue.ppm
+add-layer grogubluebv
+add-image-to-layer grogubluebv grogublue.ppm 0 0
+set-filter grogubluebv brighten-value
+save-image grogubluebv.ppm
+save-project grogucollage.collage

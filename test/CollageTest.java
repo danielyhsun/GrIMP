@@ -8,8 +8,6 @@ import model.CollageModelImpl;
 import view.CollageView;
 import view.CollageViewImpl;
 
-import static org.junit.Assert.assertEquals;
-
 public class CollageTest {
 
   private CollageModel model;

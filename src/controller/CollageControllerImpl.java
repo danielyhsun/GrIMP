@@ -1,6 +1,5 @@
 package controller;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
@@ -18,7 +17,6 @@ import controller.command.SaveImage;
 import controller.command.SaveProject;
 import controller.command.SetFilter;
 import model.CollageModel;
-import model.CollageModelImpl;
 import view.CollageView;
 
 /**
