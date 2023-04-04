@@ -20,4 +20,5 @@ public interface CollageGuiView {
   void saveProjectChooser(Consumer<File> fileConsumer);
   void initLayerFilterMap();
   void setNewLayerFilterMapNormal(String layerName);
+
 }

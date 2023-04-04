@@ -430,5 +430,6 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
   public void setNewLayerFilterMapNormal(String layerName) {
     layerAndFilterMap.put(layerName, 0);
   }
+
 }
 

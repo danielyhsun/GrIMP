@@ -27,4 +27,5 @@ public final class Collage {
     CollageControllerImpl controller = new CollageControllerImpl(model, view);
     controller.run();
   }
+
 }

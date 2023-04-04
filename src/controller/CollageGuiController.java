@@ -102,4 +102,5 @@ public class CollageGuiController implements Features {
     model.setFilter(layerName, filterOption);
     view.updateImagePanel(model.getCollageImage());
   }
+
 }

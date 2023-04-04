@@ -278,4 +278,5 @@ public class CollageModelImpl implements CollageModel {
   public ArrayList<String> getLayersOfLoadedProject() {
     return currentProject.getLayersOfLoadedProject();
   }
+
 }

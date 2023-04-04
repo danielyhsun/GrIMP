@@ -2,6 +2,7 @@ package model;
 
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
@@ -36,8 +37,8 @@ public class ProjectTest {
     project.addLayer("Layer1");
 
     try {
-      project.addImageToLayer("Layer1", "grogu.ppm", 0, 0);
-      Image image = new Image("grogu.ppm");
+      project.addImageToLayer("Layer1", new File("grogu.ppm"), 0, 0);
+      Image image = new Image(new File("grogu.ppm"));
       image.readPPM();
       assertEquals(project.layers.get("Layer1").getPixels(), image.getPixels());
     } catch (IOException e) {
@@ -48,7 +49,7 @@ public class ProjectTest {
   @Test(expected = IllegalStateException.class)
   public void testAddImageToLayerWithInvalidLayer() throws IOException {
     Project project = new Project(500, 500);
-    project.addImageToLayer("InvalidLayer", "path/to/image/file", 10, 10);
+    project.addImageToLayer("InvalidLayer", new File("path/to/image/file"), 10, 10);
   }
 
   @Test
