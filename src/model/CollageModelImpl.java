@@ -1,9 +1,12 @@
 package model;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static model.Project.MAX_CLAMP;
@@ -13,6 +16,7 @@ import static model.Project.MAX_CLAMP;
  */
 public class CollageModelImpl implements CollageModel {
   private Project currentProject;
+  File tempFile;
 
   /**
    * The constructor for a CollageModelImpl
@@ -70,12 +74,19 @@ public class CollageModelImpl implements CollageModel {
   @Override
   public void addImageToLayer(String layerName, String filePath, int x, int y)
           throws IllegalStateException, IOException {
+    File file = new File(filePath);
+    addImageToLayer(layerName, file, x, y);
+  }
+
+  public void addImageToLayer(String layerName, File file, int x, int y)
+          throws IllegalStateException, IOException {
     if (currentProject == null) {
       throw new IllegalStateException("No project is currently open!");
     } else {
-      currentProject.addImageToLayer(layerName, filePath, x, y);
+      currentProject.addImageToLayer(layerName, file, x, y);
     }
   }
+
 
   /**
    * Sets the filter for a given layer with a given filter name.
@@ -102,11 +113,17 @@ public class CollageModelImpl implements CollageModel {
    */
   @Override
   public void saveProject(String filePath) throws IOException, IllegalStateException {
+    File file = new File(filePath);
+    saveProject(file);
+  }
+
+  @Override
+  public void saveProject(File file) throws IOException, IllegalStateException {
     if (currentProject == null) {
       throw new IllegalStateException("No project is currently open!");
     }
     try {
-      FileWriter writer = new FileWriter(filePath);
+      FileWriter writer = new FileWriter(file);
       StringBuilder text = currentProject.writeToCollageFormat();
       writer.write(String.valueOf(text));
       writer.close();
@@ -114,6 +131,7 @@ public class CollageModelImpl implements CollageModel {
       throw new IOException("Could not save project");
     }
   }
+
 
   /**
    * Saves the current project collage as a ppm formatted image to a designated file location.
@@ -151,6 +169,42 @@ public class CollageModelImpl implements CollageModel {
     }
   }
 
+  public void tempSaveImage() throws IOException {
+    try {
+      int height = currentProject.getCanvasHeight();
+      int width = currentProject.getCanvasWidth();
+
+      tempFile = File.createTempFile("tempImage_", ".ppm");
+
+      FileWriter writer = new FileWriter(tempFile);
+      writer.write("P3\n");
+      writer.write(width + " " + height + "\n");
+      writer.write(MAX_CLAMP + "\n");
+
+      Pixel[][] finalImage = currentProject.layersToImage();
+
+      for (int i = 0; i < height; i++) {
+        for (int j = 0; j < width; j++) {
+          Pixel pixel = finalImage[i][j];
+          writer.write(pixel.r + " " + pixel.g + " " + pixel.b + " ");
+        }
+        writer.write("\n");
+      }
+      writer.close();
+
+    } catch (IOException e) {
+      throw new IOException("Unable to save image!");
+    }
+  }
+
+  public void deleteTempFile() {
+    if (tempFile.delete()) {
+      System.out.println("File deleted");
+    } else {
+      System.out.println("Unable to delete temp");
+    }
+  }
+
   /**
    * Loads a project from a project file with a given file location.
    *
@@ -159,12 +213,17 @@ public class CollageModelImpl implements CollageModel {
    * @throws IllegalArgumentException if the file is not a properly formatted project file
    */
   @Override
-  public void load(String filePath) throws IOException, IllegalArgumentException {
+    public void load(String filePath) throws IOException, IllegalArgumentException {
+      File file = new File(filePath);
+      load(file);
+    }
+
+  public void load(File file) throws IOException, IllegalArgumentException {
     Scanner sc;
     StringBuilder str = new StringBuilder();
 
     try {
-      sc = new Scanner(new FileInputStream(filePath));
+      sc = new Scanner(new FileInputStream(file));
       while (sc.hasNextLine()) {
         String s = sc.nextLine();
         if (s.charAt(0) != '#') {
@@ -202,5 +261,21 @@ public class CollageModelImpl implements CollageModel {
       throw new IllegalStateException("No project is currently open!");
     }
     currentProject = null;
+  }
+
+  public void setSelectedLayer(String layer) {
+    currentProject.setSelectedLayer(layer);
+  }
+
+  public String getSelectedLayer() {
+    return currentProject.getSelectedLayer();
+  }
+
+  public BufferedImage getCollageImage() {
+    return currentProject.getCollageImage();
+  }
+
+  public ArrayList<String> getLayersOfLoadedProject() {
+    return currentProject.getLayersOfLoadedProject();
   }
 }

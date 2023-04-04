@@ -14,20 +14,20 @@ public class ProjectTest {
   public void testProjectCreation() {
     Project project = new Project(600, 600);
     assertNotNull(project);
-    assertNotNull(project.layerNames);
+    assertNotNull(project.layers);
     assertEquals(600, project.getCanvasHeight());
     assertEquals(400, project.getCanvasWidth());
-    assertNotNull(project.layerNames.get("bg"));
+    assertNotNull(project.layers.get("bg"));
   }
 
   @Test
   public void testAddLayer() {
     Project project = new Project(500, 500);
     project.addLayer("Layer1");
-    assertEquals(1, project.layerNames.size());
+    assertEquals(1, project.layers.size());
 
     project.addLayer("Layer2");
-    assertEquals(2, project.layerNames.size());
+    assertEquals(2, project.layers.size());
   }
 
   @Test
@@ -39,7 +39,7 @@ public class ProjectTest {
       project.addImageToLayer("Layer1", "grogu.ppm", 0, 0);
       Image image = new Image("grogu.ppm");
       image.readPPM();
-      assertEquals(project.layerNames.get("Layer1").getPixels(), image.getPixels());
+      assertEquals(project.layers.get("Layer1").getPixels(), image.getPixels());
     } catch (IOException e) {
       fail();
     }
@@ -58,7 +58,7 @@ public class ProjectTest {
 
     try {
       project.setFilter("Layer1", "filter-red");
-      assertEquals("filter-red", project.layerNames.get("Layer1").getFilterName());
+      assertEquals("filter-red", project.layers.get("Layer1").getFilterName());
     } catch (IllegalArgumentException e) {
       fail();
     }

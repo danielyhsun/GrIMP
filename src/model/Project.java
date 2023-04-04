@@ -1,7 +1,10 @@
 package model;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -12,10 +15,11 @@ import java.util.Scanner;
  * and supports a custom format for saving and loading projects.
  */
 public class Project {
-  protected HashMap<String, Layer> layerNames;
+  protected LinkedHashMap<String, Layer> layers;
   protected static int MAX_CLAMP = 255;
   private final int canvasHeight;
   private final int canvasWidth;
+  private String selectedLayer;
 
   /**
    * Constructor for the Project class.
@@ -28,7 +32,7 @@ public class Project {
   protected Project(int canvasHeight, int canvasWidth) {
     this.canvasHeight = canvasHeight;
     this.canvasWidth = canvasWidth;
-    this.layerNames = new HashMap<>();
+    this.layers = new LinkedHashMap<>();
     this.addLayer("bg");
   }
 
@@ -45,11 +49,11 @@ public class Project {
    */
   protected void addLayer(String layerName) throws IllegalArgumentException {
     if (layerName.equals("bg")) {
-      layerNames.put("bg", new Layer(canvasHeight, canvasWidth));
-    } else if (layerNames.containsKey(layerName)) {
+      layers.put("bg", new Layer(canvasHeight, canvasWidth));
+    } else if (layers.containsKey(layerName)) {
       throw new IllegalArgumentException("Layer name already taken!");
     } else {
-      layerNames.put(layerName, new Layer(layerName, canvasHeight, canvasWidth));
+      layers.put(layerName, new Layer(layerName, canvasHeight, canvasWidth));
     }
   }
 
@@ -59,21 +63,21 @@ public class Project {
    * The Image must be in ppm format.
    *
    * @param layerName the name of the layer where the image is to be added
-   * @param filePath  the location of the image file
+   * @param file  the location of the image file
    * @param x         the image's x-offset from the layer's top-left corner
    * @param y         the image's y-offset from the layer's top-left corner
    * @throws IOException              if the path to the image file is invalid
    *                                  OR the image is not in the correct format
    * @throws IllegalArgumentException if a layer with the given layerName does not exist
    */
-  protected void addImageToLayer(String layerName, String filePath, int x, int y) throws IOException,
+  protected void addImageToLayer(String layerName, File file, int x, int y) throws IOException,
           IllegalArgumentException {
-    if (!layerNames.containsKey(layerName)) {
+    if (!layers.containsKey(layerName)) {
       throw new IllegalArgumentException();
     }
 
-    Layer layer = layerNames.get(layerName);
-    Image image = new Image(filePath);
+    Layer layer = layers.get(layerName);
+    Image image = new Image(file);
     image.readPPM();
 
     Pixel[][] layerPixels = layer.getPixels();
@@ -101,7 +105,7 @@ public class Project {
    */
   protected void setFilter(String layerName, String filterOption) throws IllegalArgumentException {
     try {
-      Layer layer = layerNames.get(layerName);
+      Layer layer = layers.get(layerName);
       layer.setFilter(filterOption);
     } catch (NullPointerException e) {
       throw new IllegalArgumentException("Layer not found!");
@@ -131,7 +135,7 @@ public class Project {
     content.append("C1\n");
     content.append(canvasWidth).append(" ").append(canvasHeight).append("\n");
     content.append(MAX_CLAMP).append("\n");
-    for (Map.Entry<String, Layer> entry : layerNames.entrySet()) {
+    for (Map.Entry<String, Layer> entry : layers.entrySet()) {
       Layer layer = entry.getValue();
       content.append(entry.getKey()).append(" ").append(layer.getFilterName()).append("\n");
       Pixel[][] tempPixels = layer.getPixels();
@@ -183,7 +187,7 @@ public class Project {
           }
         }
       }
-      Layer layer = layerNames.get(layerName);
+      Layer layer = layers.get(layerName);
       layer.updatePixels(temp);
       this.setFilter(layerName, filter);
     }
@@ -209,7 +213,7 @@ public class Project {
       }
     }
 
-    for (Map.Entry<String, Layer> entry : layerNames.entrySet()) {
+    for (Map.Entry<String, Layer> entry : layers.entrySet()) {
       Layer currentLayer = entry.getValue();
       Layer filteredLayer = new Layer(currentLayer.getName(), canvasHeight, canvasWidth);
       filteredLayer.updatePixels(deepCopyPixels(currentLayer.getPixels()));
@@ -233,7 +237,8 @@ public class Project {
             int r = (int) (finalPixel.r * (1 - alpha) + layerPixel.r * alpha);
             int g = (int) (finalPixel.g * (1 - alpha) + layerPixel.g * alpha);
             int b = (int) (finalPixel.b * (1 - alpha) + layerPixel.b * alpha);
-            finalImage[i][j] = new Pixel(r, g, b);
+            int finalAlpha = Math.max(finalPixel.a, layerPixel.a);
+            finalImage[i][j] = new Pixel(r, g, b, finalAlpha);
           }
         }
       }
@@ -275,4 +280,45 @@ public class Project {
     return this.canvasWidth;
   }
 
+  protected void setSelectedLayer(String layer) throws IllegalArgumentException {
+    if (layers.containsKey(layer)) {
+      selectedLayer = layer;
+    } else {
+      throw new IllegalArgumentException();
+    }
+  }
+
+  protected String getSelectedLayer() {
+    return selectedLayer;
+  }
+
+  protected BufferedImage getCollageImage() {
+    if (canvasWidth <= 0 || canvasHeight <= 0) {
+      return null;
+    }
+
+    Pixel[][] finalPixels = layersToImage();
+    BufferedImage collageImage = new BufferedImage(canvasWidth, canvasHeight, BufferedImage.TYPE_INT_ARGB);
+
+    for (int i = 0; i < canvasHeight; i++) {
+      for (int j = 0; j < canvasWidth; j++) {
+        Pixel pixel = finalPixels[i][j];
+        int argb = (pixel.a << 24) | (pixel.r << 16) | (pixel.g << 8) | pixel.b;
+        collageImage.setRGB(j, i, argb);
+      }
+    }
+
+    System.out.println("hello!");
+    return collageImage;
+  }
+
+  protected ArrayList<String> getLayersOfLoadedProject() {
+    ArrayList<String> loadedLayers = new ArrayList<String>();
+    for (Map.Entry<String, Layer> entry : layers.entrySet()) {
+      loadedLayers.add(entry.getKey());
+    }
+    // remove bg layer
+    loadedLayers.remove(0);
+    return loadedLayers;
+  }
 }

@@ -1,6 +1,10 @@
 import controller.CollageControllerImpl;
+import controller.CollageGuiController;
+import controller.Features;
 import model.CollageModel;
 import model.CollageModelImpl;
+import view.CollageGuiView;
+import view.CollageGuiViewImpl;
 import view.CollageView;
 import view.CollageViewImpl;
 
@@ -18,6 +22,8 @@ public final class Collage {
   public static void main(String[] args) {
     CollageModel model = new CollageModelImpl();
     CollageView view = new CollageViewImpl(model);
+    CollageGuiView guiView = new CollageGuiViewImpl(model);
+    Features guiController = new CollageGuiController(model, guiView);
     CollageControllerImpl controller = new CollageControllerImpl(model, view);
     controller.run();
   }

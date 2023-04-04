@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -10,16 +11,16 @@ import java.util.Scanner;
  * from a PPM image file of a given file path.
  */
 public class Image {
-  private String filePath;
+  private File file;
   private Pixel[][] pixels;
 
   /**
    * Constructor to create a new Image object with a given image filePath as a String.
    *
-   * @param filePath the image's file location represented as a String
+   * @param file the image's file location
    */
-  protected Image(String filePath) {
-    this.filePath = filePath;
+  protected Image(File file) {
+    this.file = file;
   }
 
   /**
@@ -42,7 +43,7 @@ public class Image {
     Scanner sc;
 
     try {
-      sc = new Scanner(new FileInputStream(filePath));
+      sc = new Scanner(new FileInputStream(file));
     }
     catch (FileNotFoundException e) {
       throw new IOException("File not found!");
