@@ -12,5 +12,4 @@ public interface Features {
   void addImageToLayerFromFile(File file, int xOffset, int yOffset) throws IOException;
   void saveProjectToFile(File file) throws IOException;
   void filterPicker(String filterOption, String layerName);
-
 }

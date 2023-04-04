@@ -94,4 +94,5 @@ public interface CollageModel {
   String getSelectedLayer();
   BufferedImage getCollageImage();
   ArrayList<String> getLayersOfLoadedProject();
+
 }

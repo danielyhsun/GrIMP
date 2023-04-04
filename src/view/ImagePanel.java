@@ -24,4 +24,5 @@ public class ImagePanel extends JPanel {
     image = i;
     repaint();
   }
+
 }
