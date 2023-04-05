@@ -159,15 +159,15 @@ public class Layer {
   protected void addFilter(String filterOption, Pixel[][] composite) {
     for (int i = 0; i < pixels.length; i++) {
       for (int j = 0; j < pixels[0].length; j++) {
-        int r = 0;
-        int g = 0;
-        int b = 0;
+        double r = 0;
+        double g = 0;
+        double b = 0;
         if (filterOption.contains("difference")) {
-          r = this.getDifference(pixels[i][j].r, composite[i][j].r);
-          g = this.getDifference(pixels[i][j].g, composite[i][j].g);
-          b = this.getDifference(pixels[i][j].b, composite[i][j].b);
+          int rTwo = this.getDifference(pixels[i][j].r, composite[i][j].r);
+          int gTwo = this.getDifference(pixels[i][j].g, composite[i][j].g);
+          int bTwo = this.getDifference(pixels[i][j].b, composite[i][j].b);
 
-          pixels[i][j] = new Pixel(r, g, b, pixels[i][j].a);
+          pixels[i][j] = new Pixel(rTwo, gTwo, bTwo, pixels[i][j].a);
         } else if (filterOption.contains("multiply")) {
           r = pixels[i][j].r;
           g = pixels[i][j].g;

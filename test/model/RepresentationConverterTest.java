@@ -26,6 +26,8 @@ public class RepresentationConverterTest {
 
     double[] temp = rc.convertRGBtoHSL(p.r / 255.0, p.g / 255.0, p.b / 255.0);
 
+    System.out.println(p.r / 255.0);
+
     assertEquals(0.0, temp[0], 0.1); // Hue
     assertEquals(0.0, temp[1], 0.1); // Saturation
     assertEquals(0.39, temp[2], 0.1); // Lightness
