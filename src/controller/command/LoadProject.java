@@ -14,7 +14,7 @@ public class LoadProject implements CollageCommand {
   /**
    * Constructor to create a LoadProject object.
    *
-   * @param filePath the location of the project file to be loaded
+   * @param filePath the location of the project file to be loaded.
    */
   public LoadProject(String filePath) {
     this.filePath = filePath;
@@ -23,7 +23,7 @@ public class LoadProject implements CollageCommand {
   /**
    * Runs the load() method on the model with the given input.
    *
-   * @param model the model
+   * @param model represents the model.
    */
   @Override
   public void runCommand(CollageModel model) throws IOException {
@@ -33,7 +33,7 @@ public class LoadProject implements CollageCommand {
   /**
    * Returns a string message associated with this command.
    *
-   * @return a string message associated with this command
+   * @return a string message associated with this command.
    */
   @Override
   public String getMessage() {

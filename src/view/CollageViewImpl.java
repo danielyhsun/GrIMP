@@ -33,7 +33,8 @@ public class CollageViewImpl implements CollageView {
    * @param appendable represents appendable object.
    * @throws IllegalArgumentException if given null model or null appendable.
    */
-  public CollageViewImpl(CollageModel model, Appendable appendable) throws IllegalArgumentException {
+  public CollageViewImpl(CollageModel model, Appendable appendable)
+          throws IllegalArgumentException {
     if (model == null || appendable == null) {
       throw new IllegalArgumentException("Given null inputs.");
     }

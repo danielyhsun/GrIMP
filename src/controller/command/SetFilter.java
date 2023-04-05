@@ -13,18 +13,18 @@ public class SetFilter implements CollageCommand {
   /**
    * Constructor to create a SetFilter object.
    *
-   * @param layerName the given layer name
-   * @param filterOption the given filter option
+   * @param layerName the given layer name.
+   * @param filterOption the given filter option.
    */
   public SetFilter(String layerName, String filterOption) {
-    this.layerName= layerName;
+    this.layerName = layerName;
     this.filterOption = filterOption;
   }
 
   /**
    * Runs the setFilter() method on the model with the given inputs.
    *
-   * @param model the model
+   * @param model represents the model.
    */
   @Override
   public void runCommand(CollageModel model) {
@@ -34,7 +34,7 @@ public class SetFilter implements CollageCommand {
   /**
    * Returns a string message associated with this command.
    *
-   * @return a string message associated with this command
+   * @return a string message associated with this command.
    */
   @Override
   public String getMessage() {

@@ -16,9 +16,9 @@ public class Pixel {
    * The values are clamped to the range of 0 to 255 to ensure that they are within the valid
    * range for a color value.
    *
-   * @param r the pixel's red value
-   * @param g the pixel's green value
-   * @param b the pixel's blue value
+   * @param r the pixel's red value.
+   * @param g the pixel's green value.
+   * @param b the pixel's blue value.
    */
   protected Pixel(int r, int g, int b) {
     this.r = clampValue(r);
@@ -31,10 +31,10 @@ public class Pixel {
    * The values are clamped to the range of 0 to 255 to ensure that they are within the valid
    * range for a color value.
    *
-   * @param r the pixel's red value
-   * @param g the pixel's green value
-   * @param b the pixel's blue value
-   * @param a the pixel's alpha value
+   * @param r the pixel's red value.
+   * @param g the pixel's green value.
+   * @param b the pixel's blue value.
+   * @param a the pixel's alpha value.
    */
   protected Pixel(int r, int g, int b, int a) {
     this.r = clampValue(r);
@@ -43,7 +43,11 @@ public class Pixel {
     this.a = clampValue(a);
   }
 
-  // makes sure that each component value is between 0 and the max clamp value
+  /**
+   * Ensures component is within 0 and 255.
+   * @param val component that is being checked.
+   * @return new component that fits parameters.
+   */
   private int clampValue(int val) {
     if (val > MAX_CLAMP) {
       val = MAX_CLAMP;

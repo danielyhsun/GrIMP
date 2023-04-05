@@ -323,7 +323,8 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     filterPanel = new JPanel(new FlowLayout());
     String[] filters = {"Normal", "Brighten Value", "Brighten Intensity", "Brighten Luma",
                         "Darken Value", "Darken Intensity", "Darken Luma",
-                        "Filter Red", "Filter Blue", "Filter Green"};
+                        "Filter Red", "Filter Blue", "Filter Green", "Blend Difference" ,
+                        "Blend Multiply", "Blend Screen"};
     filterDropdown = new JComboBox<>(filters);
     filterPanel.add(filterDropdown);
     filterPanel.setVisible(false);

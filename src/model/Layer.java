@@ -1,22 +1,27 @@
 package model;
 
+/**
+ * Layer class.
+ */
 public class Layer {
   private final String name;
   private String filterName;
   private Pixel[][] pixels;
+  private RepresentationConverter rc;
 
   /**
    * Constructor to create a Layer with a given name, canvas height, and canvas width.
    * Creates a transparent white layer.
    *
-   * @param name the name of the layer
-   * @param height the height of the canvas
-   * @param width the width of the canvas
+   * @param name the name of the layer.
+   * @param height the height of the canvas.
+   * @param width the width of the canvas.
    */
   protected Layer(String name, int height, int width) {
     this.name = name;
     this.filterName = "Normal";
     this.pixels = new Pixel[height][width];
+    this.rc = new RepresentationConverter();
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         pixels[i][j] = new Pixel(255, 255, 255, 0);
@@ -28,13 +33,14 @@ public class Layer {
    * Constructor to create a default background Layer.
    * Creates an opaque white layer.
    *
-   * @param height the height of the canvas
-   * @param width the width of the canvas
+   * @param height the height of the canvas.
+   * @param width the width of the canvas.
    */
   protected Layer(int height, int width) {
     this.name = "bg";
     this.filterName = "Normal";
     this.pixels = new Pixel[height][width];
+    this.rc = new RepresentationConverter();
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         pixels[i][j] = new Pixel(255, 255, 255, 255);
@@ -45,7 +51,7 @@ public class Layer {
   /**
    * Returns the name of this layer.
    *
-   * @return the name of the layer
+   * @return the name of the layer.
    */
   protected String getName() {
     return name;
@@ -54,7 +60,7 @@ public class Layer {
   /**
    * Returns the filter associated with this layer.
    *
-   * @return the filter associated with this layer
+   * @return the filter associated with this layer.
    */
   protected String getFilterName() {
     return filterName;
@@ -72,7 +78,7 @@ public class Layer {
   /**
    * Updates the layer's 2D array of pixels by setting it to the new given 2D array of pixels.
    *
-   * @param newPixels the new 2D array of pixels
+   * @param newPixels the new 2D array of pixels.
    */
   protected void updatePixels(Pixel[][] newPixels) {
     pixels = newPixels;
@@ -86,7 +92,8 @@ public class Layer {
    */
   protected void setFilter(String filterOption) throws IllegalArgumentException {
     if (!(filterOption.contains("brighten") || filterOption.contains("darken")
-            || filterOption.contains("filter") || filterOption.contains("Normal"))) {
+            || filterOption.contains("filter") || filterOption.contains("Normal")
+            || filterOption.contains("blend"))) {
       throw new IllegalArgumentException();
     }
     filterName = filterOption;
@@ -97,7 +104,7 @@ public class Layer {
    * A filter option can be a combination of a brightness adjustments (brighten/darken) with a
    * calculation method (value/intensity/luma) or a color channel isolation (red/green/blue).
    *
-   * @param filterOption the filter option to be applied to the layer's pixels
+   * @param filterOption the filter option to be applied to the layer's pixels.
    */
   protected void addFilter(String filterOption) {
     for (int i = 0; i < pixels.length; i++) {
@@ -142,13 +149,88 @@ public class Layer {
   }
 
   /**
+   * Applies a filter effect to the layer's pixels based on the specified filter option.
+   * Difference
+   * Multiply
+   * Screen
+   *
+   * @param filterOption the filter option to be applied to the layer's pixels.
+   */
+  protected void addFilter(String filterOption, Pixel[][] composite) {
+    for (int i = 0; i < pixels.length; i++) {
+      for (int j = 0; j < pixels[0].length; j++) {
+        int r = 0;
+        int g = 0;
+        int b = 0;
+        if (filterOption.contains("difference")) {
+          r = this.getDifference(pixels[i][j].r, composite[i][j].r);
+          g = this.getDifference(pixels[i][j].g, composite[i][j].g);
+          b = this.getDifference(pixels[i][j].b, composite[i][j].b);
+
+          pixels[i][j] = new Pixel(r, g, b, pixels[i][j].a);
+        } else if (filterOption.contains("multiply")) {
+          r = pixels[i][j].r;
+          g = pixels[i][j].g;
+          double[] cur = this.rc.convertRGBtoHSL(r, g, pixels[i][j].b);
+          double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r, composite[i][j].g,
+                  composite[i][j].b);
+
+          b = this.getMultiply(cur[2], comp[2]);
+
+          Pixel p = this.rc.convertHSLtoRGB(r, g, b);
+          pixels[i][j] = new Pixel(p.r, p.g, p.b, pixels[i][j].a);
+        } else if (filterOption.contains("screen")) {
+          r = pixels[i][j].r;
+          g = pixels[i][j].g;
+          double[] cur = this.rc.convertRGBtoHSL(r, g, pixels[i][j].b);
+          double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r, composite[i][j].g,
+                  composite[i][j].b);
+
+          b = this.getScreen(cur[2], comp[2]);
+
+          Pixel p = this.rc.convertHSLtoRGB(r, g, b);
+          pixels[i][j] = new Pixel(p.r, p.g, p.b, pixels[i][j].a);
+        }
+      }
+    }
+  }
+
+  /**
+   * Calculates blending difference between the two pixel values. Takes the pixel values of the
+   * current layer and the composite image and returns difference.
+   *
+   *
+   */
+  private int getDifference(int currentPixel, int compositePixel) {
+    return currentPixel - compositePixel;
+  }
+
+  /**
+   * Calculates blending value for multiply filter between the two pixel values. Takes HSL component
+   * of the current layer and multiplies lightness factor by lightness factor of the composite layer
+   * below.
+   */
+  private int getMultiply(double currentPixel, double compositePixel) {
+    return (int) (currentPixel * compositePixel);
+  }
+
+  /**
+   * Calculates blending value for screen filter between two pixel values. Takes HSL component of
+   * the current layer and returns lightness value according to equation below.
+   * ((1 - L) * (1 - dL))
+   */
+  private int getScreen(double currentPixel, double compositePixel) {
+    return (int) ((1 - currentPixel) * (1 - compositePixel));
+  }
+
+  /**
    * Calculates the value of a pixel based on its red, green, and blue color values.
    * The value is the maximum of the three color values.
    *
-   * @param r the red color value of the pixel
-   * @param g the green color value of the pixel
-   * @param b the blue color value of the pixel
-   * @return the value of the pixel
+   * @param r the red color value of the pixel.
+   * @param g the green color value of the pixel.
+   * @param b the blue color value of the pixel.
+   * @return the value of the pixel.
    */
   private int getValue(int r, int g, int b) {
     return Math.max(Math.max(r, g), b);
@@ -158,10 +240,10 @@ public class Layer {
    * Calculates the intensity of a pixel based on its red, green, and blue color values.
    * The intensity is the average of the three color values.
    *
-   * @param r the red color value of the pixel
-   * @param g the green color value of the pixel
-   * @param b the blue color value of the pixel
-   * @return the intensity of the pixel
+   * @param r the red color value of the pixel.
+   * @param g the green color value of the pixel.
+   * @param b the blue color value of the pixel.
+   * @return the intensity of the pixel.
    */
   private int getIntensity(int r, int g, int b) {
     return (r + g + b) / 3;
@@ -172,10 +254,10 @@ public class Layer {
    * The luma is a weighted sum of the color values that represents the perceived brightness
    * of the pixel.
    *
-   * @param r the red color value of the pixel
-   * @param g the green color value of the pixel
-   * @param b the blue color value of the pixel
-   * @return the luma of the pixel
+   * @param r the red color value of the pixel.
+   * @param g the green color value of the pixel.
+   * @param b the blue color value of the pixel.
+   * @return the luma of the pixel.
    */
   private int getLuma(int r, int g, int b) {
     double luma = r * 0.2126 + g * 0.7152 + b * 0.0722;

@@ -9,6 +9,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+/**
+ * Test class for project class.
+ */
 public class ProjectTest {
 
   @Test
@@ -66,7 +69,8 @@ public class ProjectTest {
   }
 
   @Test(expected = IllegalStateException.class)
-  public void testSetFilterWithInvalidLayer() throws IllegalStateException, IllegalArgumentException {
+  public void testSetFilterWithInvalidLayer()
+          throws IllegalStateException, IllegalArgumentException {
     Project project = new Project(500, 500);
     project.setFilter("InvalidLayer", "darken-luma");
   }

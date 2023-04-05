@@ -17,7 +17,7 @@ public interface CollageCommand {
   /**
    * Returns a string message associated with this command.
    *
-   * @return a string message associated with this command
+   * @return a string message associated with this command.
    */
   String getMessage();
 

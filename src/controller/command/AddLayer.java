@@ -12,7 +12,7 @@ public class AddLayer implements CollageCommand {
   /**
    * Constructor to create an AddLayer object.
    *
-   * @param layerName the given name of the layer to be created
+   * @param layerName the given name of the layer to be created.
    */
   public AddLayer(String layerName) {
     this.layerName = layerName;
@@ -21,7 +21,7 @@ public class AddLayer implements CollageCommand {
   /**
    * Runs the addLayer() method on the model with the given input.
    *
-   * @param model the model
+   * @param model represents the model.
    */
   @Override
   public void runCommand(CollageModel model) {
@@ -31,7 +31,7 @@ public class AddLayer implements CollageCommand {
   /**
    * Returns a string message associated with this command.
    *
-   * @return a string message associated with this command
+   * @return a string message associated with this command.
    */
   @Override
   public String getMessage() {

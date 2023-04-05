@@ -17,10 +17,10 @@ public class AddImageToLayer implements CollageCommand {
   /**
    * Constructor to create a SetFilter object.
    *
-   * @param layerName the given layer name
-   * @param filePath the location of the image
-   * @param x the x offset from the top-left corner of the layer
-   * @param y the y offset from the top-left corner of the layer
+   * @param layerName the given layer name.
+   * @param filePath the location of the image.
+   * @param x the x offset from the top-left corner of the layer.
+   * @param y the y offset from the top-left corner of the layer.
    */
   public AddImageToLayer(String layerName, String filePath, int x, int y) {
     this.layerName = layerName;
@@ -32,7 +32,7 @@ public class AddImageToLayer implements CollageCommand {
   /**
    * Runs the addImageToLayer() method on the model with the given inputs.
    *
-   * @param model the model
+   * @param model represents the model.
    */
   @Override
   public void runCommand(CollageModel model) throws IOException {
@@ -42,7 +42,7 @@ public class AddImageToLayer implements CollageCommand {
   /**
    * Returns a string message associated with this command.
    *
-   * @return a string message associated with this command
+   * @return a string message associated with this command.
    */
   @Override
   public String getMessage() {

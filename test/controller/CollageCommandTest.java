@@ -19,6 +19,10 @@ import model.CollageModelImpl;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+
+/**
+ * Collage command test class.
+ */
 public class CollageCommandTest {
   private CollageModel model;
 
@@ -86,11 +90,6 @@ public class CollageCommandTest {
     command2.runCommand(model);
   }
 
-  // Controller tests
-  @Test
-  public void testControllerRun() {
-    // You can implement this test using a mock or a specific input stream.
-  }
 
   // NewProject command tests
   @Test

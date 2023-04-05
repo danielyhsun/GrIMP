@@ -11,7 +11,7 @@ public class Quit implements CollageCommand {
   /**
    * Runs the quitProject() method on the model.
    *
-   * @param model the model
+   * @param model represents the model.
    */
   public void runCommand(CollageModel model) {
     model.quitProject();
@@ -20,7 +20,7 @@ public class Quit implements CollageCommand {
   /**
    * Returns a string message associated with this command.
    *
-   * @return a string message associated with this command
+   * @return a string message associated with this command.
    */
   public String getMessage() {
     return "Project has been quit";

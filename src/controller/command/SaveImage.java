@@ -14,7 +14,7 @@ public class SaveImage implements CollageCommand {
   /**
    * Constructor to create a SaveImage object.
    *
-   * @param filePath the location to save the image to
+   * @param filePath the location to save the image.
    */
   public SaveImage(String filePath) {
     this.filePath = filePath;
@@ -23,8 +23,8 @@ public class SaveImage implements CollageCommand {
   /**
    * Runs the saveImage() method on the model with the given inputs.
    *
-   * @param model the model.
-   * @throws IOException if the filePath is invalid
+   * @param model represents the model.
+   * @throws IOException if the filePath is invalid.
    */
   @Override
   public void runCommand(CollageModel model) throws IOException {
@@ -34,7 +34,7 @@ public class SaveImage implements CollageCommand {
   /**
    * Returns a string message associated with this command.
    *
-   * @return a string message associated with this command
+   * @return a string message associated with this command.
    */
   @Override
   public String getMessage() {

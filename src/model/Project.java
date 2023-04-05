@@ -218,7 +218,20 @@ public class Project {
       Layer filteredLayer = new Layer(currentLayer.getName(), canvasHeight, canvasWidth);
       filteredLayer.updatePixels(deepCopyPixels(currentLayer.getPixels()));
       filteredLayer.setFilter(currentLayer.getFilterName());
-      filteredLayer.addFilter(filteredLayer.getFilterName());
+      System.out.println("Current layers filter: " + currentLayer.getFilterName());
+      if (currentLayer.getFilterName().contains("blend")) {
+        System.out.println("Blend detected");
+      }
+
+      if (currentLayer.getFilterName().contains("blend")) {
+        filteredLayer.addFilter(filteredLayer.getFilterName(), this.getCompositeImage());
+        System.out.println("Blend filters applied.");
+      }
+      else {
+        filteredLayer.addFilter(filteredLayer.getFilterName());
+        System.out.println("Other filters applied.");
+      }
+
       Pixel[][] layerPixels = filteredLayer.getPixels();
 
       for (int i = 0; i < canvasHeight; i++) {
@@ -245,6 +258,48 @@ public class Project {
     }
     return finalImage;
   }
+
+  /**
+   * Get values of composite image underneath current layer.
+   */
+  private Pixel[][] getCompositeImage() {
+    Pixel[][] compositeImage = new Pixel[canvasHeight][canvasWidth];
+    for (int i = 0; i < canvasHeight; i++) {
+      for (int j = 0; j < canvasWidth; j++) {
+        compositeImage[i][j] = new Pixel(255, 255, 255, 0);
+      }
+    }
+    for (Map.Entry<String, Layer> entry : layers.entrySet()) {
+      if (entry.getValue() != this.layers.get(this.selectedLayer)) { // Skip current layer
+        Layer temp = entry.getValue();
+        Layer filteredLayer = new Layer(temp.getName(), canvasHeight, canvasWidth);
+        filteredLayer.updatePixels(deepCopyPixels(temp.getPixels()));
+        filteredLayer.setFilter(temp.getFilterName());
+        filteredLayer.addFilter(filteredLayer.getFilterName());
+        Pixel[][] layerPixels = filteredLayer.getPixels();
+        for (int i = 0; i < canvasHeight; i++) {
+          for (int j = 0; j < canvasWidth; j++) {
+            Pixel layerPixel = layerPixels[i][j];
+            Pixel finalPixel = compositeImage[i][j];
+            if (layerPixel.a == 0) {
+              continue;
+            }
+            if (finalPixel == null) {
+              compositeImage[i][j] = layerPixel;
+            } else {
+              double alpha = layerPixel.a / 255.0;
+              int r = (int) (finalPixel.r * (1 - alpha) + layerPixel.r * alpha);
+              int g = (int) (finalPixel.g * (1 - alpha) + layerPixel.g * alpha);
+              int b = (int) (finalPixel.b * (1 - alpha) + layerPixel.b * alpha);
+              compositeImage[i][j] = new Pixel(r, g, b);
+            }
+          }
+        }
+      }
+    }
+    return compositeImage;
+  }
+
 
   // create a deep copy of a Pixel[][] to apply operations without affecting the original
   private Pixel[][] deepCopyPixels(Pixel[][] originalPixels) {

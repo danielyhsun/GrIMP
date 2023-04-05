@@ -95,6 +95,17 @@ public class CollageGuiController implements Features {
         break;
       case "Filter Blue":
         filterOption = "filter-blue";
+        System.out.println("Filtering blue");
+        break;
+      case "Blend Difference":
+        filterOption = "blend-difference";
+        System.out.println("Blending Difference");
+        break;
+      case "Blend Multiply":
+        filterOption = "blend-multiply";
+        break;
+      case "Blend Screen":
+        filterOption = "blend-screen";
         break;
       default:
         filterOption = "Normal";

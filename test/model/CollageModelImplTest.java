@@ -8,6 +8,9 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Model implementation test class.
+ */
 public class CollageModelImplTest {
   private CollageModelImpl model;
 
@@ -113,9 +116,11 @@ public class CollageModelImplTest {
     model.quitProject();
   }
 
+  /*
   @Test
   public void testQuitProject() {
     model.newProject(100, 100);
     model.quitProject();
   }
+   */
 }

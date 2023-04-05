@@ -8,15 +8,19 @@ import model.CollageModelImpl;
 import view.CollageView;
 import view.CollageViewImpl;
 
+/**
+ * Collage program test class.
+ */
 public class CollageTest {
-
-  private CollageModel model;
-  private CollageView view;
-  private Readable read;
-  private CollageControllerImpl controller;
 
   @Before
   public void init() {
+    CollageModel model;
+    CollageView view;
+    Readable read;
+    CollageControllerImpl controller;
+
+
     model = new CollageModelImpl();
     view = new CollageViewImpl(model, System.out);
     read = new InputStreamReader(System.in);

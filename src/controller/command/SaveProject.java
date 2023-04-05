@@ -14,7 +14,7 @@ public class SaveProject implements CollageCommand {
   /**
    * Constructor to create a SaveProject object.
    *
-   * @param filePath the location to save the project to
+   * @param filePath the location to save the project.
    */
   public SaveProject(String filePath) {
     this.filePath = filePath;
@@ -23,18 +23,18 @@ public class SaveProject implements CollageCommand {
   /**
    * Runs the saveProject() method on the model with the given inputs.
    *
-   * @param model the model.
-   * @throws IOException if the filePath is invalid
+   * @param model represents the model.
+   * @throws IOException if the filePath is invalid.
    */
   @Override
   public void runCommand(CollageModel model) throws IOException {
-      model.saveProject(filePath);
+    model.saveProject(filePath);
   }
 
   /**
    * Returns a string message associated with this command.
    *
-   * @return a string message associated with this command
+   * @return a string message associated with this command.
    */
   @Override
   public String getMessage() {

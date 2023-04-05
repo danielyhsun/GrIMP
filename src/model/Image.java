@@ -17,7 +17,7 @@ public class Image {
   /**
    * Constructor to create a new Image object with a given image filePath as a String.
    *
-   * @param file the image's file location
+   * @param filePath the image's file location represented as a String
    */
   protected Image(File file) {
     this.file = file;
