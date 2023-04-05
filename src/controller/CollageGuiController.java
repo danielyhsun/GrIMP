@@ -8,8 +8,8 @@ import view.CollageGuiView;
 
 public class CollageGuiController implements Features {
 
-  CollageModel model;
-  CollageGuiView view;
+  private CollageModel model;
+  private CollageGuiView view;
 
   public CollageGuiController(CollageModel model, CollageGuiView view) {
     this.model = model;
@@ -95,11 +95,9 @@ public class CollageGuiController implements Features {
         break;
       case "Filter Blue":
         filterOption = "filter-blue";
-        System.out.println("Filtering blue");
         break;
       case "Blend Difference":
         filterOption = "blend-difference";
-        System.out.println("Blending Difference");
         break;
       case "Blend Multiply":
         filterOption = "blend-multiply";

@@ -171,9 +171,11 @@ public class Layer {
         } else if (filterOption.contains("multiply")) {
           r = pixels[i][j].r;
           g = pixels[i][j].g;
-          double[] cur = this.rc.convertRGBtoHSL(r, g, pixels[i][j].b);
-          double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r, composite[i][j].g,
-                  composite[i][j].b);
+          double[] cur = this.rc.convertRGBtoHSL(r / 255.0, g / 255.0,
+                  pixels[i][j].b / 255.0);
+          double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r / 255.0,
+                  composite[i][j].g / 255.0,
+                  composite[i][j].b / 255.0);
 
           b = this.getMultiply(cur[2], comp[2]);
 
@@ -182,9 +184,11 @@ public class Layer {
         } else if (filterOption.contains("screen")) {
           r = pixels[i][j].r;
           g = pixels[i][j].g;
-          double[] cur = this.rc.convertRGBtoHSL(r, g, pixels[i][j].b);
-          double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r, composite[i][j].g,
-                  composite[i][j].b);
+          double[] cur = this.rc.convertRGBtoHSL(r / 255.0, g / 255.0,
+                  pixels[i][j].b / 255.0);
+          double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r / 255.0,
+                  composite[i][j].g / 255.0,
+                  composite[i][j].b / 255.0);
 
           b = this.getScreen(cur[2], comp[2]);
 

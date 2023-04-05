@@ -218,18 +218,12 @@ public class Project {
       Layer filteredLayer = new Layer(currentLayer.getName(), canvasHeight, canvasWidth);
       filteredLayer.updatePixels(deepCopyPixels(currentLayer.getPixels()));
       filteredLayer.setFilter(currentLayer.getFilterName());
-      System.out.println("Current layers filter: " + currentLayer.getFilterName());
-      if (currentLayer.getFilterName().contains("blend")) {
-        System.out.println("Blend detected");
-      }
 
       if (currentLayer.getFilterName().contains("blend")) {
         filteredLayer.addFilter(filteredLayer.getFilterName(), this.getCompositeImage());
-        System.out.println("Blend filters applied.");
       }
       else {
         filteredLayer.addFilter(filteredLayer.getFilterName());
-        System.out.println("Other filters applied.");
       }
 
       Pixel[][] layerPixels = filteredLayer.getPixels();
