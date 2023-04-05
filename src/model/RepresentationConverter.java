@@ -20,40 +20,43 @@ public class RepresentationConverter {
      * @param b blue value of the RGB between 0 and 1
      */
     public static double[] convertRGBtoHSL(double r, double g, double b) {
-		double componentMax = Math.max(r, Math.max(g, b));
-		double componentMin = Math.min(r, Math.min(g, b));
-		double delta = componentMax - componentMin;
+			r = r / 255.0;
+			g = g / 255.0;
+			b = b / 255.0;
+			double componentMax = Math.max(r, Math.max(g, b));
+			double componentMin = Math.min(r, Math.min(g, b));
+			double delta = componentMax - componentMin;
 
-		double lightness = (componentMax + componentMin)/2;
-		double hue, saturation;
-		if(delta == 0) {
-				hue = 0;
-				saturation = 0;
-		} else {
-				saturation = delta / (1 - Math.abs(2*lightness - 1));
-				hue = 0;
-				if(componentMax == r) {
-					hue = (g - b)/delta;
-					hue = hue % 6;
-				} else if(componentMax == g) {
-					hue = (b - r)/delta;
-					hue += 2;
-				} else if(componentMax == b){
-					hue = (r - g)/delta;
-					hue += 4;
+			double lightness = (componentMax + componentMin)/2;
+			double hue, saturation;
+			if(delta == 0) {
+					hue = 0;
+					saturation = 0;
+			} else {
+					saturation = delta / (1 - Math.abs(2*lightness - 1));
+					hue = 0;
+					if(componentMax == r) {
+						hue = (g - b)/delta;
+						hue = hue % 6;
+					} else if(componentMax == g) {
+						hue = (b - r)/delta;
+						hue += 2;
+					} else if(componentMax == b){
+						hue = (r - g)/delta;
+						hue += 4;
+					}
+
+				hue = hue * 60;
 				}
-		
-	    hue = hue * 60;
-	}
-	
-			System.out.println("RGB (" + r + "," + g + "," + b +") to HSL => (" + hue + "," + saturation + "," + lightness + ")");
 
-			double[] temp = new double[3];
-			temp[0] = hue;
-			temp[1] = saturation;
-			temp[2] = lightness;
+				System.out.println("RGB (" + r + "," + g + "," + b +") to HSL => (" + hue + "," + saturation + "," + lightness + ")");
 
-			return temp;
+				double[] temp = new double[3];
+				temp[0] = hue;
+				temp[1] = saturation;
+				temp[2] = lightness;
+
+				return temp;
     }
 
 

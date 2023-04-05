@@ -159,9 +159,6 @@ public class Layer {
   protected void addFilter(String filterOption, Pixel[][] composite) {
     for (int i = 0; i < pixels.length; i++) {
       for (int j = 0; j < pixels[0].length; j++) {
-        double r = 0;
-        double g = 0;
-        double b = 0;
         if (filterOption.contains("difference")) {
           int rTwo = this.getDifference(pixels[i][j].r, composite[i][j].r);
           int gTwo = this.getDifference(pixels[i][j].g, composite[i][j].g);
@@ -169,31 +166,38 @@ public class Layer {
 
           pixels[i][j] = new Pixel(rTwo, gTwo, bTwo, pixels[i][j].a);
         } else if (filterOption.contains("multiply")) {
-          r = pixels[i][j].r;
-          g = pixels[i][j].g;
-          double[] cur = this.rc.convertRGBtoHSL(r / 255.0, g / 255.0,
-                  pixels[i][j].b / 255.0);
-          double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r / 255.0,
-                  composite[i][j].g / 255.0,
-                  composite[i][j].b / 255.0);
+            double r = pixels[i][j].r;
+            double g = pixels[i][j].g;
 
-          b = this.getMultiply(cur[2], comp[2]);
+  //          double[] cur = this.rc.convertRGBtoHSL(r / 255.0, g / 255.0,
+  //                  pixels[i][j].b / 255.0);
+  //          double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r / 255.0,
+  //                  composite[i][j].g / 255.0,
+  //                  composite[i][j].b / 255.0);
 
-          Pixel p = this.rc.convertHSLtoRGB(r, g, b);
-          pixels[i][j] = new Pixel(p.r, p.g, p.b, pixels[i][j].a);
+            double[] cur = this.rc.convertRGBtoHSL(r, g,
+                    pixels[i][j].b);
+            double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r,
+                    composite[i][j].g,
+                    composite[i][j].b);
+
+            double b = this.getMultiply(cur[2], comp[2]);
+
+            Pixel p = this.rc.convertHSLtoRGB(cur[0], cur[1], b);
+            pixels[i][j] = new Pixel(p.r, p.g, p.b, pixels[i][j].a);
         } else if (filterOption.contains("screen")) {
-          r = pixels[i][j].r;
-          g = pixels[i][j].g;
-          double[] cur = this.rc.convertRGBtoHSL(r / 255.0, g / 255.0,
-                  pixels[i][j].b / 255.0);
-          double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r / 255.0,
-                  composite[i][j].g / 255.0,
-                  composite[i][j].b / 255.0);
+            double r = pixels[i][j].r;
+            double g = pixels[i][j].g;
+            double[] cur = this.rc.convertRGBtoHSL(r, g,
+                    pixels[i][j].b);
+            double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r,
+                    composite[i][j].g,
+                    composite[i][j].b);
 
-          b = this.getScreen(cur[2], comp[2]);
+            double b = this.getScreen(cur[2], comp[2]);
 
-          Pixel p = this.rc.convertHSLtoRGB(r, g, b);
-          pixels[i][j] = new Pixel(p.r, p.g, p.b, pixels[i][j].a);
+            Pixel p = this.rc.convertHSLtoRGB(cur[0], cur[1], b);
+            pixels[i][j] = new Pixel(p.r, p.g, p.b, pixels[i][j].a);
         }
       }
     }
@@ -214,8 +218,8 @@ public class Layer {
    * of the current layer and multiplies lightness factor by lightness factor of the composite layer
    * below.
    */
-  private int getMultiply(double currentPixel, double compositePixel) {
-    return (int) (currentPixel * compositePixel);
+  private double getMultiply(double currentPixel, double compositePixel) {
+    return currentPixel * compositePixel;
   }
 
   /**
@@ -223,8 +227,8 @@ public class Layer {
    * the current layer and returns lightness value according to equation below.
    * ((1 - L) * (1 - dL))
    */
-  private int getScreen(double currentPixel, double compositePixel) {
-    return (int) ((1 - currentPixel) * (1 - compositePixel));
+  private double getScreen(double currentPixel, double compositePixel) {
+    return (1 - currentPixel) * (1 - compositePixel);
   }
 
   /**
