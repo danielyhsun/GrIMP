@@ -83,7 +83,9 @@ public class CollageGuiController implements Features {
   public void loadProjectFromFile(File file) throws IOException {
     model.load(file);
     view.showLayersPanelAndResetLayers();
+    view.updateImagePanel(model.getCollageImage());
     view.addLoadedLayersToLayerPane(model.getLayersOfLoadedProject());
+    view.initLayerFilterMap();
   }
 
   /**

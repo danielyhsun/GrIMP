@@ -1,9 +1,9 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.FlowLayout;
+import java.awt.Dimension;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -42,26 +42,43 @@ import model.CollageModel;
  */
 public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
 
+  private CollageModel model;
   private JMenuBar menuBar;
-  private JMenu fileMenu, projectMenu, imageMenu;
-  private JMenuItem newProject, loadProject, saveProject, quitProject, saveImage, addImage;
-  private JPanel mainPanel, layerListPanel, interactionPanel, imagePanel, filterPanel;
+  private JMenu fileMenu;
+  private JMenu projectMenu;
+  private JMenu imageMenu;
+  private JMenuItem newProject;
+  private JMenuItem loadProject;
+  private JMenuItem saveProject;
+  private JMenuItem quitProject;
+  private JMenuItem saveImage;
+  private JMenuItem addImage;
+  private JPanel mainPanel;
+  private JPanel layerListPanel;
+  private JPanel interactionPanel;
+  private JPanel imagePanel;
+  private JPanel filterPanel;
   private JComboBox<String> filterDropdown;
-  private JScrollPane layerScrollPane, imageScrollPane;
+  private JScrollPane layerScrollPane;
+  private JScrollPane imageScrollPane;
   private JButton addLayerButton;
   private JList<String> layerList;
   private DefaultListModel<String> layerListModel;
-  private JDialog addLayerDialog, newProjectDialog;
-  private JFileChooser fileChooser, imageChooser;
-  private JLabel imageLabel, filterLabel;
+  private JDialog addLayerDialog;
+  private JDialog newProjectDialog;
+  private JFileChooser fileChooser;
+  private JFileChooser imageChooser;
+  private JLabel imageLabel;
+  private JLabel filterLabel;
   private HashMap<String, Integer> layerAndFilterMap;
 
   /**
    * Constructor for a CollageGuiViewImpl. Takes in a CollageModel, initializes GUI Components,
    * and sets itself as visible.
-   * @param model the model.
+   * @param model the model
    */
   public CollageGuiViewImpl(CollageModel model) {
+    this.model = model;
     initComponents();
 
     this.setVisible(true);
@@ -96,6 +113,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     loadProject.addActionListener(e -> loadProjectChooser(file -> {
       try {
         f.loadProjectFromFile(file);
+        filterPanel.setVisible(true);
       } catch (IOException | IllegalArgumentException ex) {
         //
       }
@@ -370,9 +388,9 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     interactionPanel.add(layerListPanel, BorderLayout.NORTH);
     filterPanel = new JPanel(new FlowLayout());
     String[] filters = {"Normal", "Brighten Value", "Brighten Intensity", "Brighten Luma",
-                        "Darken Value", "Darken Intensity", "Darken Luma",
-                        "Filter Red", "Filter Blue", "Filter Green", "Blend Difference" ,
-                        "Blend Multiply", "Blend Screen"};
+            "Darken Value", "Darken Intensity", "Darken Luma",
+            "Filter Red", "Filter Blue", "Filter Green", "Blend Difference" ,
+            "Blend Multiply", "Blend Screen"};
     filterDropdown = new JComboBox<>(filters);
     filterPanel.add(filterDropdown);
     filterPanel.setVisible(false);
