@@ -2,11 +2,17 @@ package controller;
 
 import org.junit.Test;
 
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 
 import model.CollageModel;
 import model.CollageModelImpl;
+import view.CollageGuiView;
+import view.CollageGuiViewImpl;
 import view.CollageView;
 import view.CollageViewImpl;
 
@@ -17,6 +23,84 @@ import static org.junit.Assert.assertNotEquals;
  * Test class for controller implementation.
  */
 public class CollageControllerImplTest {
+
+  /**
+   * Test if red, green, or blue component filters work as expected on layer.
+   */
+  @Test
+  public void testRGBComponentFilters() {
+    CollageModel model = new CollageModelImpl();
+    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiController controller = new CollageGuiController(model, view);
+
+    controller.newProject(500, 500);
+    controller.addNewLayer("layer");
+    controller.changeSelectedLayer("layer");
+    File file = new File("/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubi.ppm");
+    try {
+      controller.addImageToLayerFromFile(file, 100, 100);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    model.setFilter("layer", "filter-blue");
+    try {
+      model.saveImage("/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubi.ppm");
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    BufferedImage tempImage = model.getCollageImage();
+
+    for (int i = 0 ; i < tempImage.getHeight() ; i ++) {
+      for (int j = 0 ; j < tempImage.getWidth() ; j ++) {
+        int value = tempImage.getRGB(j, i);
+        Color c = new Color(value);
+
+        int r = c.getRed();
+        int g = c.getGreen();
+        int b = c.getBlue();
+
+        assertEquals(0, r);
+        assertEquals(0, g);
+        assertNotEquals(0, b);
+      }
+    }
+  }
+
+  /**
+   * Test to verify that adding two layers with different images results in a correct final image.
+   */
+  @Test
+  public void testDifferentLayers() {
+    CollageModel model = new CollageModelImpl();
+    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiController controller = new CollageGuiController(model, view);
+
+    controller.newProject(500, 500);
+    controller.addNewLayer("layerOne");
+    controller.addNewLayer("layerTwo");
+    File fileOne = new File("/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubi.ppm");
+    File fileTwo = new File("/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubl.ppm");
+    try {
+      controller.changeSelectedLayer("layerOne");
+      controller.addImageToLayerFromFile(fileOne, 0, 0);
+      controller.changeSelectedLayer("layerTwo");
+      controller.addImageToLayerFromFile(fileTwo, 100, 100);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    try {
+      model.saveImage("/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubi.ppm");
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+
+    controller.displayCollage();
+
+    assertEquals("layerTwo", model.getSelectedLayer());
+  }
 
   /**
    * Tester method for controller implementation if given only model and view.
@@ -434,6 +518,24 @@ public class CollageControllerImplTest {
 
     assertEquals("New 100x100 project created\nSaved as image to: grogudi.ppm\n" +
             "Not a valid project file!\n", appendable.toString());
+  }
+
+  /**
+   * Test to make sure program is reading in commands correctly.
+   */
+  @Test
+  public void testReadCommands() {
+    CollageModel model = new CollageModelImpl();
+    Appendable appendable = new StringBuilder();
+    CollageView view = new CollageViewImpl(model, appendable);
+    Readable readable = new StringReader("new-project 100 100 add-layer layer1 " +
+            "save-project CollageProj");
+    CollageController controller = new CollageControllerImpl(model, view, readable);
+
+    controller.run();
+
+    assertEquals("New 100x100 project created\nNew layer (layer1) added\n" +
+            "Project saved to: CollageProj\n", appendable.toString());
   }
 
   /**

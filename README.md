@@ -61,8 +61,8 @@ to the user via the Appendable object.
 
 ### How To Use:
 To use the collage program, run the main() method in the Collage class. When the program runs,
-you can either type or copy and paste the script into the console. 
-
+you can either type or copy and paste the script into the console. View script for list of 
+valid commands.
 ---
 
 ### Citations:

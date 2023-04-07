@@ -7,7 +7,7 @@ import model.CollageModel;
  * Represents a command object to execute a method to add a new layer in the model.
  */
 public class AddLayer implements CollageCommand {
-  String layerName;
+  private String layerName;
 
   /**
    * Constructor to create an AddLayer object.

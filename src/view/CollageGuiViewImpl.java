@@ -1,6 +1,9 @@
 package view;
 
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -9,8 +12,24 @@ import java.util.HashMap;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileFilter;
 
 import controller.Features;
@@ -23,28 +42,26 @@ import model.CollageModel;
  */
 public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
 
-  CollageModel model;
-  JMenuBar menuBar;
-  JMenu fileMenu, projectMenu, imageMenu;
-  JMenuItem newProject, loadProject, saveProject, quitProject, saveImage, addImage;
-  JPanel mainPanel, layerListPanel, interactionPanel, imagePanel, filterPanel;
-  JComboBox<String> filterDropdown;
-  JScrollPane layerScrollPane, imageScrollPane;
-  JButton addLayerButton;
-  JList<String> layerList;
-  DefaultListModel<String> layerListModel;
-  JDialog addLayerDialog, newProjectDialog;
-  JFileChooser fileChooser, imageChooser;
-  JLabel imageLabel, filterLabel;
-  HashMap<String, Integer> layerAndFilterMap;
+  private JMenuBar menuBar;
+  private JMenu fileMenu, projectMenu, imageMenu;
+  private JMenuItem newProject, loadProject, saveProject, quitProject, saveImage, addImage;
+  private JPanel mainPanel, layerListPanel, interactionPanel, imagePanel, filterPanel;
+  private JComboBox<String> filterDropdown;
+  private JScrollPane layerScrollPane, imageScrollPane;
+  private JButton addLayerButton;
+  private JList<String> layerList;
+  private DefaultListModel<String> layerListModel;
+  private JDialog addLayerDialog, newProjectDialog;
+  private JFileChooser fileChooser, imageChooser;
+  private JLabel imageLabel, filterLabel;
+  private HashMap<String, Integer> layerAndFilterMap;
 
   /**
    * Constructor for a CollageGuiViewImpl. Takes in a CollageModel, initializes GUI Components,
    * and sets itself as visible.
-   * @param model the model
+   * @param model the model.
    */
   public CollageGuiViewImpl(CollageModel model) {
-    this.model = model;
     initComponents();
 
     this.setVisible(true);
@@ -99,6 +116,17 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
                   "No project open!", "Error", JOptionPane.ERROR_MESSAGE);
         }
       });
+    }));
+    saveImage.addActionListener(e -> saveImageChooser(fileName -> {
+      try {
+        f.saveImageToFile(fileName);
+      } catch (IOException ex) {
+        //
+      } catch (IllegalStateException ex) {
+        // error message popup if user tries to save image when no project is open
+        JOptionPane.showMessageDialog(null,
+                "Could not save image: No project open!", "Error", JOptionPane.ERROR_MESSAGE);
+      }
     }));
     saveProject.addActionListener(e -> saveProjectChooser(file -> {
       try {
@@ -196,8 +224,8 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
   }
 
   /**
-   * Shows
-   * @param fileConsumer
+   * Shows load project option.
+   * @param fileConsumer represents file intake for project.
    */
   public void loadProjectChooser(Consumer<File> fileConsumer) {
     fileChooser = new JFileChooser();
@@ -224,6 +252,10 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     }
   }
 
+  /**
+   * Assists in adding image to layer according to file.
+   * @param fileConsumer represents object to take in file.
+   */
   public void addImageToLayerChooser(Consumer<File> fileConsumer) {
     imageChooser = new JFileChooser();
     FileFilter filter = new FileFilter() {
@@ -249,6 +281,12 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     }
   }
 
+  /**
+   * Helper function for file with extension.
+   * @param file represents file object.
+   * @param allowedExtensions represents string that is being appended.
+   * @return if file has correct extension.
+   */
   private boolean fileExtensionHelper(File file, String[] allowedExtensions) {
     if (file.isDirectory()) {
       return true;
@@ -263,6 +301,10 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     return false;
   }
 
+  /**
+   * Method to display and take in dimensions to place image.
+   * @param xyConsumer represents dimensions on where image is going to be placed.
+   */
   public void addImageXYOffset(BiConsumer<Integer, Integer> xyConsumer) {
     JDialog xyOffsetDialog = new JDialog(this, "Add Image", true);
     xyOffsetDialog.setLayout(new BorderLayout());
@@ -291,12 +333,18 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     xyOffsetDialog.setVisible(true);
   }
 
+  /**
+   * Initial components for program.
+   */
   private void initComponents() {
     this.setSize(1280, 720);
     setupMenuBar();
     setupPanels();
   }
 
+  /**
+   * Establishes dimensions, layout, and buttons of the program.
+   */
   private void setupPanels() {
     mainPanel = new JPanel(new BorderLayout());
 
@@ -334,6 +382,9 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     getContentPane().add(mainPanel);
   }
 
+  /**
+   * Sets up the top left menu bar that holds buttons for the project and image functionality.
+   */
   private void setupMenuBar() {
     menuBar = new JMenuBar();
     fileMenu = new JMenu("File");
@@ -357,6 +408,10 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     this.setJMenuBar(menuBar);
   }
 
+  /**
+   * Updates image panel to keep the program refreshed and up to date.
+   * @param i represents image that is being broadcasted through the program.
+   */
   public void updateImagePanel(BufferedImage i) {
     if (i == null) {
       System.out.println("null image!");
@@ -387,10 +442,18 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     System.out.println("Image updated!");
   }
 
+  /**
+   * Adds layer to program.
+   * @param s represents name of layer.
+   */
   private void addLayerToLayerPane(String s) {
     layerListModel.add(0, s);
   }
 
+  /**
+   * Adds multiple layers to program holder.
+   * @param layers names of layers to add.
+   */
   public void addLoadedLayersToLayerPane(ArrayList<String> layers) {
     for (String layer : layers) {
       layerListModel.add(0, layer);
@@ -398,10 +461,27 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     }
   }
 
-  public void quitProject() {
+  /**
+   * Chooser method for saving an Image.
+   * @param fileConsumer file location for saving image.
+   */
+  public void saveImageChooser(Consumer<File> fileConsumer) {
+    JFileChooser fileChooser = new JFileChooser();
+    fileChooser.setDialogTitle("Save Image");
+    int userSelection = fileChooser.showSaveDialog(null);
 
+    if (userSelection == JFileChooser.APPROVE_OPTION) {
+      File fileToSave = fileChooser.getSelectedFile();
+      String desiredExtension = ".ppm";
+      fileToSave = addFileExtensionIfNeeded(fileToSave, desiredExtension);
+      fileConsumer.accept(fileToSave);
+    }
   }
 
+  /**
+   * Chooser method for saving a project.
+   * @param fileConsumer file location for saving project.
+   */
   public void saveProjectChooser(Consumer<File> fileConsumer) {
     JFileChooser fileChooser = new JFileChooser();
     fileChooser.setDialogTitle("Save Project");
@@ -415,6 +495,12 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     }
   }
 
+  /**
+   * Checks and adds file extension if needed.
+   * @param file file that might need extension.
+   * @param extension potential extension to add.
+   * @return File with extension.
+   */
   private File addFileExtensionIfNeeded(File file, String extension) {
     String fileName = file.getAbsolutePath();
     if (!fileName.toLowerCase().endsWith(extension.toLowerCase())) {
@@ -424,10 +510,17 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     return file;
   }
 
+  /**
+   * Establishes hashmap for layers and filters.
+   */
   public void initLayerFilterMap() {
     layerAndFilterMap = new HashMap<>();
   }
 
+  /**
+   * Establishes start of hashmap by adding initial layer.
+   * @param layerName represents name of inital layer.
+   */
   public void setNewLayerFilterMapNormal(String layerName) {
     layerAndFilterMap.put(layerName, 0);
   }

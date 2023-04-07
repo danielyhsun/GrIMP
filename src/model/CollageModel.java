@@ -3,11 +3,12 @@ package model;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.util.ArrayList;
 
 /**
  * An interface that represents the model for a Collage Program.
+ * It provides the methods to creating the project canvas and adding new layers. Communicates to
+ * the project object to run the actions.
  */
 public interface CollageModel {
 
@@ -43,7 +44,8 @@ public interface CollageModel {
   void addImageToLayer(String layerName, String filePath, int x, int y)
           throws IllegalStateException, IOException;
 
-  void addImageToLayer(String layerName, File file, int x, int y) throws IllegalStateException, IOException;
+  void addImageToLayer(String layerName, File file, int x, int y)
+          throws IllegalStateException, IOException;
 
   /**
    * Sets the filter for a given layer with a given filter name.
@@ -92,9 +94,28 @@ public interface CollageModel {
    */
   void quitProject() throws IllegalStateException;
 
+  /**
+   * Changes selected layer.
+   * @param layer represents name of new selected layer.
+   */
   void setSelectedLayer(String layer);
+
+  /**
+   * Gets selected layer.
+   * @return String of selected layer.
+   */
   String getSelectedLayer();
+
+  /**
+   * Gets collage image.
+   * @return collage image as a buffered image.
+   */
   BufferedImage getCollageImage();
+
+  /**
+   * Gets layers of a loaded project.
+   * @return string list representing layers.
+   */
   ArrayList<String> getLayersOfLoadedProject();
 
 }

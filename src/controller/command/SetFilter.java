@@ -7,8 +7,8 @@ import model.CollageModel;
  * Represents a command object to execute a method to set a layer's filter in the model.
  */
 public class SetFilter implements CollageCommand {
-  String layerName;
-  String filterOption;
+  private String layerName;
+  private String filterOption;
 
   /**
    * Constructor to create a SetFilter object.

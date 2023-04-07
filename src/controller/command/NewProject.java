@@ -8,8 +8,8 @@ import model.CollageModel;
  */
 public class NewProject implements CollageCommand {
 
-  int canvasHeight;
-  int canvasWidth;
+  private int canvasHeight;
+  private int canvasWidth;
 
   /**
    * Constructor to create a NewProject object.

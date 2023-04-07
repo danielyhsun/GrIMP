@@ -156,8 +156,9 @@ public class Project {
   /**
    * Loads a project from a given Scanner containing project data in the custom collage format.
    * The method reads the data from the Scanner, recreates the layers with their respective
-   * filter names, and populates the layers with pixel data. The project dimensions (height and width)
-   * are provided as arguments and should match the dimensions specified in the input data.
+   * filter names, and populates the layers with pixel data. The project dimensions
+   * (height and width) are provided as arguments and should match the dimensions specified in the
+   * input data.
    *
    * @param sc     a Scanner containing the project data in the custom collage format
    * @param height the height of the project canvas
@@ -203,7 +204,7 @@ public class Project {
    * the filters to the layers before calling this method if you want the final image to include
    * the filtered appearance of the layers.
    *
-   * @return a Pixel[][] array representing the final image obtained by merging all layers
+   * @return a Pixel[][] array representing the final image obtained by merging all layers.
    */
   protected Pixel[][] layersToImage() {
     Pixel[][] finalImage = new Pixel[canvasHeight][canvasWidth];
@@ -278,7 +279,7 @@ public class Project {
             if (layerPixel.a == 0) {
               continue;
             }
-            if (finalPixel == null) {
+            if (finalPixel.a == 0) {
               compositeImage[i][j] = layerPixel;
             } else {
               double alpha = layerPixel.a / 255.0;
@@ -304,7 +305,8 @@ public class Project {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         Pixel originalPixel = originalPixels[i][j];
-        copiedPixels[i][j] = new Pixel(originalPixel.r, originalPixel.g, originalPixel.b, originalPixel.a);
+        copiedPixels[i][j] = new Pixel(originalPixel.r, originalPixel.g, originalPixel.b,
+                originalPixel.a);
       }
     }
 
@@ -347,7 +349,8 @@ public class Project {
     }
 
     Pixel[][] finalPixels = layersToImage();
-    BufferedImage collageImage = new BufferedImage(canvasWidth, canvasHeight, BufferedImage.TYPE_INT_ARGB);
+    BufferedImage collageImage = new BufferedImage(canvasWidth, canvasHeight,
+            BufferedImage.TYPE_INT_ARGB);
 
     for (int i = 0; i < canvasHeight; i++) {
       for (int j = 0; j < canvasWidth; j++) {

@@ -9,7 +9,7 @@ import model.CollageModel;
  * Represents a command object to execute a method to save an image in the model.
  */
 public class SaveImage implements CollageCommand {
-  String filePath;
+  private String filePath;
 
   /**
    * Constructor to create a SaveImage object.

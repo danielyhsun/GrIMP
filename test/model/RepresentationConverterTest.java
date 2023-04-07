@@ -2,23 +2,14 @@ package model;
 
 import org.junit.Test;
 
-import java.io.InputStreamReader;
-import java.io.StringReader;
-
-import model.CollageModel;
-import model.CollageModelImpl;
-import view.CollageView;
-import view.CollageViewImpl;
-
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+
 
 /**
  * Tester class for representation converter class, which helps to convert pixel values to HSL,
  * and HSL to pixel values.
  */
 public class RepresentationConverterTest {
-
   @Test
   public void testConvertRGBtoHSL() {
     RepresentationConverter rc = new RepresentationConverter();

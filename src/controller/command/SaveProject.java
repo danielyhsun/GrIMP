@@ -9,7 +9,7 @@ import model.CollageModel;
  * Represents a command object to execute a method to save a project in the model.
  */
 public class SaveProject implements CollageCommand {
-  String filePath;
+  private String filePath;
 
   /**
    * Constructor to create a SaveProject object.

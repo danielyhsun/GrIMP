@@ -1,7 +1,8 @@
 package model;
 
 /**
- * Layer class.
+ * Layer class represents a single layer in the project. The layer is used to represent a
+ * representation of images where filters can be applied to alter the apperance.
  */
 public class Layer {
   private final String name;
@@ -166,38 +167,28 @@ public class Layer {
 
           pixels[i][j] = new Pixel(rTwo, gTwo, bTwo, pixels[i][j].a);
         } else if (filterOption.contains("multiply")) {
-            double r = pixels[i][j].r;
-            double g = pixels[i][j].g;
+          double r = pixels[i][j].r;
+          double g = pixels[i][j].g;
 
-  //          double[] cur = this.rc.convertRGBtoHSL(r / 255.0, g / 255.0,
-  //                  pixels[i][j].b / 255.0);
-  //          double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r / 255.0,
-  //                  composite[i][j].g / 255.0,
-  //                  composite[i][j].b / 255.0);
+          double[] cur = this.rc.convertRGBtoHSL(r, g, pixels[i][j].b);
+          double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r, composite[i][j].g,
+                  composite[i][j].b);
 
-            double[] cur = this.rc.convertRGBtoHSL(r, g,
-                    pixels[i][j].b);
-            double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r,
-                    composite[i][j].g,
-                    composite[i][j].b);
+          double b = this.getMultiply(cur[2], comp[2]);
 
-            double b = this.getMultiply(cur[2], comp[2]);
-
-            Pixel p = this.rc.convertHSLtoRGB(cur[0], cur[1], b);
-            pixels[i][j] = new Pixel(p.r, p.g, p.b, pixels[i][j].a);
+          Pixel p = this.rc.convertHSLtoRGB(cur[0], cur[1], b);
+          pixels[i][j] = new Pixel(p.r, p.g, p.b, pixels[i][j].a);
         } else if (filterOption.contains("screen")) {
-            double r = pixels[i][j].r;
-            double g = pixels[i][j].g;
-            double[] cur = this.rc.convertRGBtoHSL(r, g,
-                    pixels[i][j].b);
-            double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r,
-                    composite[i][j].g,
-                    composite[i][j].b);
+          double r = pixels[i][j].r;
+          double g = pixels[i][j].g;
+          double[] cur = this.rc.convertRGBtoHSL(r, g, pixels[i][j].b);
+          double[] comp = this.rc.convertRGBtoHSL(composite[i][j].r, composite[i][j].g,
+                  composite[i][j].b);
 
-            double b = this.getScreen(cur[2], comp[2]);
+          double b = this.getScreen(cur[2], comp[2]);
 
-            Pixel p = this.rc.convertHSLtoRGB(cur[0], cur[1], b);
-            pixels[i][j] = new Pixel(p.r, p.g, p.b, pixels[i][j].a);
+          Pixel p = this.rc.convertHSLtoRGB(cur[0], cur[1], b);
+          pixels[i][j] = new Pixel(p.r, p.g, p.b, pixels[i][j].a);
         }
       }
     }

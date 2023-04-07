@@ -9,10 +9,10 @@ import model.CollageModel;
  * Represents a command object to execute a method to add an image to a layer in the model.
  */
 public class AddImageToLayer implements CollageCommand {
-  String layerName;
-  String filePath;
-  int x;
-  int y;
+  private String layerName;
+  private String filePath;
+  private int x;
+  private int y;
 
   /**
    * Constructor to create a SetFilter object.

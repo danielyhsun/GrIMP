@@ -13,6 +13,8 @@ import static model.Project.MAX_CLAMP;
 
 /**
  * Represents an implementation of a Collage Program model.
+ * It provides the methods to creating the project canvas and adding new layers. Communicates to
+ * the project object to run the actions.
  */
 public class CollageModelImpl implements CollageModel {
   private Project currentProject;
@@ -78,6 +80,16 @@ public class CollageModelImpl implements CollageModel {
     addImageToLayer(layerName, file, x, y);
   }
 
+  /**
+   * Adds an image from a specified file path to the layer of the specified name with an offset of.
+   * x and y from top left corner of the canvas.
+   *
+   * @param layerName the name of the layer.
+   * @param x the x offset from the top left corner of the canvas.
+   * @param y the y offset from the top left corner of the canvas.
+   * @throws IllegalStateException if there is no project currently open.
+   * @throws IOException if the image could not be found with the given filepath.
+   */
   public void addImageToLayer(String layerName, File file, int x, int y)
           throws IllegalStateException, IOException {
     if (currentProject == null) {
@@ -169,6 +181,10 @@ public class CollageModelImpl implements CollageModel {
     }
   }
 
+  /**
+   * Temporarily saves image.
+   * @throws IOException if image or file save is invalid.
+   */
   public void tempSaveImage() throws IOException {
     try {
       int height = currentProject.getCanvasHeight();
@@ -197,6 +213,9 @@ public class CollageModelImpl implements CollageModel {
     }
   }
 
+  /**
+   * Deletes temp files.
+   */
   public void deleteTempFile() {
     if (tempFile.delete()) {
       System.out.println("File deleted");
@@ -213,11 +232,17 @@ public class CollageModelImpl implements CollageModel {
    * @throws IllegalArgumentException if the file is not a properly formatted project file.
    */
   @Override
-    public void load(String filePath) throws IOException, IllegalArgumentException {
-      File file = new File(filePath);
-      load(file);
-    }
+  public void load(String filePath) throws IOException, IllegalArgumentException {
+    File file = new File(filePath);
+    load(file);
+  }
 
+  /**
+   * Loads a project from a project file with a given file location.
+   * @param file represents file location of project.
+   * @throws IOException if file is bad.
+   * @throws IllegalArgumentException if file location is invalid.
+   */
   public void load(File file) throws IOException, IllegalArgumentException {
     Scanner sc;
     StringBuilder str = new StringBuilder();
@@ -263,18 +288,34 @@ public class CollageModelImpl implements CollageModel {
     currentProject = null;
   }
 
+  /**
+   * Changes selected layer.
+   * @param layer represents name of new selected layer.
+   */
   public void setSelectedLayer(String layer) {
     currentProject.setSelectedLayer(layer);
   }
 
+  /**
+   * Gets selected layer.
+   * @return String of selected layer.
+   */
   public String getSelectedLayer() {
     return currentProject.getSelectedLayer();
   }
 
+  /**
+   * Gets collage image.
+   * @return collage image as a buffered image.
+   */
   public BufferedImage getCollageImage() {
     return currentProject.getCollageImage();
   }
 
+  /**
+   * Gets layers of a loaded project.
+   * @return string list representing layers.
+   */
   public ArrayList<String> getLayersOfLoadedProject() {
     return currentProject.getLayersOfLoadedProject();
   }

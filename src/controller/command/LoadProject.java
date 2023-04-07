@@ -9,7 +9,7 @@ import model.CollageModel;
  * Represents a command object to execute a method to load a project file in the model.
  */
 public class LoadProject implements CollageCommand {
-  String filePath;
+  private String filePath;
 
   /**
    * Constructor to create a LoadProject object.

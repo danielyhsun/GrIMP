@@ -17,7 +17,7 @@ public class Image {
   /**
    * Constructor to create a new Image object with a given image filePath as a String.
    *
-   * @param filePath the image's file location represented as a String
+   * @param file the image's file location represented as a String
    */
   protected Image(File file) {
     this.file = file;
@@ -52,8 +52,8 @@ public class Image {
     //read the file line by line, and populate a string. This will throw away any comment lines
     while (sc.hasNextLine()) {
       String s = sc.nextLine();
-      if (s.charAt(0)!='#') {
-        builder.append(s+System.lineSeparator());
+      if (s.charAt(0) != '#') {
+        builder.append(s + System.lineSeparator());
       }
     }
 
@@ -67,9 +67,9 @@ public class Image {
       System.out.println("Invalid PPM file: plain RAW file should begin with P3");
     }
     int width = sc.nextInt();
-    System.out.println("Width of image: "+width);
+    System.out.println("Width of image: " + width);
     int height = sc.nextInt();
-    System.out.println("Height of image: "+height);
+    System.out.println("Height of image: " + height);
     int maxValue = sc.nextInt();
     System.out.println("Maximum value of a color in this file (usually 255): " + maxValue);
 
