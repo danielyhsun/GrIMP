@@ -42,33 +42,21 @@ import model.CollageModel;
  */
 public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
 
-  private CollageModel model;
-  private JMenuBar menuBar;
-  private JMenu fileMenu;
-  private JMenu projectMenu;
-  private JMenu imageMenu;
   private JMenuItem newProject;
   private JMenuItem loadProject;
   private JMenuItem saveProject;
-  private JMenuItem quitProject;
   private JMenuItem saveImage;
   private JMenuItem addImage;
-  private JPanel mainPanel;
   private JPanel layerListPanel;
-  private JPanel interactionPanel;
   private JPanel imagePanel;
   private JPanel filterPanel;
   private JComboBox<String> filterDropdown;
-  private JScrollPane layerScrollPane;
   private JScrollPane imageScrollPane;
   private JButton addLayerButton;
   private JList<String> layerList;
   private DefaultListModel<String> layerListModel;
   private JDialog addLayerDialog;
   private JDialog newProjectDialog;
-  private JFileChooser fileChooser;
-  private JFileChooser imageChooser;
-  private JLabel imageLabel;
   private JLabel filterLabel;
   private HashMap<String, Integer> layerAndFilterMap;
 
@@ -78,14 +66,13 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
    * @param model the model
    */
   public CollageGuiViewImpl(CollageModel model) {
-    this.model = model;
     initComponents();
 
     this.setVisible(true);
   }
 
   /**
-   * Add listeners for GUI Elements
+   * Add listeners for GUI Elements.
    * @param f the Features object
    */
   public void addFeatures(Features f) {
@@ -246,7 +233,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
    * @param fileConsumer represents file intake for project.
    */
   public void loadProjectChooser(Consumer<File> fileConsumer) {
-    fileChooser = new JFileChooser();
+    JFileChooser fileChooser = new JFileChooser();
     FileFilter filter = new FileFilter() {
       private final String[] allowedExtensions = {".clg", ".txt"};
 
@@ -275,7 +262,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
    * @param fileConsumer represents object to take in file.
    */
   public void addImageToLayerChooser(Consumer<File> fileConsumer) {
-    imageChooser = new JFileChooser();
+    JFileChooser imageChooser = new JFileChooser();
     FileFilter filter = new FileFilter() {
       private final String[] allowedExtensions = {".ppm"};
 
@@ -364,7 +351,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
    * Establishes dimensions, layout, and buttons of the program.
    */
   private void setupPanels() {
-    mainPanel = new JPanel(new BorderLayout());
+    JPanel mainPanel = new JPanel(new BorderLayout());
 
     imagePanel = new ImagePanel(null);
     imageScrollPane = new JScrollPane(imagePanel);
@@ -376,21 +363,21 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     layerList = new JList<>(layerListModel);
     layerList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
-    layerScrollPane = new JScrollPane(layerList);
+    JScrollPane layerScrollPane = new JScrollPane(layerList);
     layerScrollPane.setPreferredSize(new Dimension(200, 600));
 
     addLayerButton = new JButton("Add Layer");
     layerListPanel = new JPanel(new BorderLayout());
     layerListPanel.add(addLayerButton, BorderLayout.NORTH);
     layerListPanel.add(layerScrollPane, BorderLayout.CENTER);
-    interactionPanel = new JPanel(new BorderLayout());
+    JPanel interactionPanel = new JPanel(new BorderLayout());
     mainPanel.add(interactionPanel, BorderLayout.EAST);
     interactionPanel.add(layerListPanel, BorderLayout.NORTH);
     filterPanel = new JPanel(new FlowLayout());
     String[] filters = {"Normal", "Brighten Value", "Brighten Intensity", "Brighten Luma",
-            "Darken Value", "Darken Intensity", "Darken Luma",
-            "Filter Red", "Filter Blue", "Filter Green", "Blend Difference" ,
-            "Blend Multiply", "Blend Screen"};
+                        "Darken Value", "Darken Intensity", "Darken Luma",
+                        "Filter Red", "Filter Blue", "Filter Green", "Blend Difference" ,
+                        "Blend Multiply", "Blend Screen"};
     filterDropdown = new JComboBox<>(filters);
     filterPanel.add(filterDropdown);
     filterPanel.setVisible(false);
@@ -404,10 +391,10 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
    * Sets up the top left menu bar that holds buttons for the project and image functionality.
    */
   private void setupMenuBar() {
-    menuBar = new JMenuBar();
-    fileMenu = new JMenu("File");
-    projectMenu = new JMenu("Project");
-    imageMenu = new JMenu("Image");
+    JMenuBar menuBar = new JMenuBar();
+    JMenu fileMenu = new JMenu("File");
+    JMenu projectMenu = new JMenu("Project");
+    JMenu imageMenu = new JMenu("Image");
     fileMenu.add(projectMenu);
     fileMenu.add(imageMenu);
     saveImage = new JMenuItem("Save Image");
@@ -417,7 +404,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     newProject = new JMenuItem("New Project");
     loadProject = new JMenuItem("Load Project");
     saveProject = new JMenuItem("Save Project");
-    quitProject = new JMenuItem("Quit Project");
+    JMenuItem quitProject = new JMenuItem("Quit Project");
     projectMenu.add(newProject);
     projectMenu.add(loadProject);
     projectMenu.add(saveProject);
@@ -450,7 +437,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     }
      */
 
-    imageLabel = new JLabel(new ImageIcon(i));
+    JLabel imageLabel = new JLabel(new ImageIcon(i));
     imagePanel.add(imageLabel);
     imagePanel.revalidate();
     imagePanel.repaint();
