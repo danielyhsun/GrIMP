@@ -30,13 +30,13 @@ public class CollageControllerImplTest {
   @Test
   public void testRGBComponentFilters() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);
     controller.addNewLayer("layer");
     controller.changeSelectedLayer("layer");
-    File file = new File("/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubi.ppm");
+    File file = new File("res/grogubi.ppm");
     try {
       controller.addImageToLayerFromFile(file, 100, 100);
     } catch (IOException e) {
@@ -45,7 +45,7 @@ public class CollageControllerImplTest {
 
     model.setFilter("layer", "filter-blue");
     try {
-      model.saveImage("/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubi.ppm");
+      model.saveImage("res/grogubi.ppm");
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -74,7 +74,7 @@ public class CollageControllerImplTest {
   @Test
   public void testDifferentLayers() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);

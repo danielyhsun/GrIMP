@@ -1,3 +1,8 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+
+import controller.CollageController;
 import controller.CollageControllerImpl;
 import controller.CollageGuiController;
 import controller.Features;
@@ -20,12 +25,32 @@ public final class Collage {
    * @param args the arguments that the program will parse
    */
   public static void main(String[] args) {
-    CollageModel model = new CollageModelImpl();
-    CollageView view = new CollageViewImpl(model);
-    CollageGuiView guiView = new CollageGuiViewImpl(model);
-    Features guiController = new CollageGuiController(model, guiView);
-    CollageControllerImpl controller = new CollageControllerImpl(model, view);
-    controller.run();
+    if (args.length == 0) {
+      CollageModel model = new CollageModelImpl();
+      CollageGuiView guiView = new CollageGuiViewImpl();
+      Features guiController = new CollageGuiController(model, guiView);
+    } else if (args.length == 1 && args[0].equals("-text")) {
+      CollageModel model = new CollageModelImpl();
+      CollageView view = new CollageViewImpl(model);
+      CollageControllerImpl controller = new CollageControllerImpl(model, view);
+      controller.run();
+    } else if (args.length == 2 && args[0].equals("-file")) {
+      String path = args[1];
+      CollageModel model = new CollageModelImpl();
+      CollageView view = new CollageViewImpl(model);
+      try {
+        BufferedReader reader = new BufferedReader(new FileReader(path));
+        CollageController controller = new CollageControllerImpl(model, view, reader);
+        controller.run();
+        reader.close();
+      } catch (IOException e) {
+        System.err.println("Error reading script file: " + e.getMessage());
+        System.exit(1);
+    }
+    System.exit(0);
+    } else {
+      System.err.println("Invalid command-line arguments!");
+      System.exit(1);
+    }
   }
-
 }

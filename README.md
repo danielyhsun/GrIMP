@@ -48,6 +48,15 @@ associated with the command.
 Various command classes implementing the CollageCommand interface, such as AddImageToLayer, 
 AddLayer, LoadProject, NewProject, Quit, SaveImage, SaveProject, and SetFilter.
 
+**Features interface:** An interface representing the functions to execute when an action is
+performed by the user with the graphical user interface. 
+
+**CollageGuiController class:** A class implementing the Features interface, which handles user 
+interactions with the graphical user interface, and updates the model accordingly. For example, when
+the "New Project" menu item is clicked in the GUI, an action event calls the newProject
+method in this class to be run, which initializes a new project in the model, and calls other
+relevant methods in the model and view when a new project is to be created.
+
 ---
 
 ### View:
@@ -57,6 +66,15 @@ the method for rendering messages to the user.
 **CollageViewImpl class:** A class implementing the CollageView interface, which displays messages 
 to the user via the Appendable object. 
 
+**CollageGuiView interface:** An interface representing a graphical user interface representation of
+the program, which allows users to interact with the program through UI components.
+
+**CollageGuiViewImpl class:** A class implementing the CollageGuiView interface, which displays a
+graphical user interface window to the user. The window has a menu bar for interacting with files
+and images, like creating, loading, or saving projects, and adding or saving images. When a project
+is open, the GUI window displays an image of the current collage, and has a sidebar which allows
+the user to create and select layers, and a dropdown menu to apply filters to those layers.
+
 ---
 
 ### How To Use:
@@ -64,6 +82,9 @@ To use the collage program, run the main() method in the Collage class. When the
 you can either type or copy and paste the script into the console. View script for list of 
 valid commands.
 ---
+
+### Decoupling:
+
 
 ### Citations:
 **Grogu Image:**

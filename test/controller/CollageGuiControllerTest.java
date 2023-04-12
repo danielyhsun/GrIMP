@@ -33,7 +33,7 @@ public class CollageGuiControllerTest {
   @Test
   public void testNewProject() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);
@@ -48,7 +48,7 @@ public class CollageGuiControllerTest {
   @Test
   public void testDisplayCollage() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);
@@ -71,7 +71,7 @@ public class CollageGuiControllerTest {
   @Test
   public void testChangeSelectedLayer() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);
@@ -87,7 +87,7 @@ public class CollageGuiControllerTest {
   @Test
   public void testLoadPPM() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);
@@ -112,7 +112,7 @@ public class CollageGuiControllerTest {
   @Test
   public void testLoadJPEG() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);
@@ -139,7 +139,7 @@ public class CollageGuiControllerTest {
   @Test
   public void testLoadPNG() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);
@@ -166,7 +166,7 @@ public class CollageGuiControllerTest {
   @Test
   public void testSavePPM() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);
@@ -189,7 +189,7 @@ public class CollageGuiControllerTest {
   @Test
   public void testSaveJPG() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);
@@ -212,7 +212,7 @@ public class CollageGuiControllerTest {
   @Test
   public void testSavePNG() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);
@@ -236,7 +236,7 @@ public class CollageGuiControllerTest {
   @Test
   public void testPPMtoJPG() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);
@@ -266,7 +266,7 @@ public class CollageGuiControllerTest {
   @Test
   public void testJPGtoPNG() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);
@@ -296,7 +296,7 @@ public class CollageGuiControllerTest {
   @Test
   public void testPNGtoPPM() {
     CollageModel model = new CollageModelImpl();
-    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiView view = new CollageGuiViewImpl();
     CollageGuiController controller = new CollageGuiController(model, view);
 
     controller.newProject(500, 500);

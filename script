@@ -8,4 +8,5 @@ add-layer grogubluebv
 add-image-to-layer grogubluebv grogublue.ppm 0 0
 set-filter grogubluebv brighten-value
 save-image grogubluebv.ppm
-save-project grogucollage.collage
+save-project grogucollage.clg
+load-project grogucollage.clg

@@ -63,9 +63,8 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
   /**
    * Constructor for a CollageGuiViewImpl. Takes in a CollageModel, initializes GUI Components,
    * and sets itself as visible.
-   * @param model the model
    */
-  public CollageGuiViewImpl(CollageModel model) {
+  public CollageGuiViewImpl() {
     initComponents();
 
     this.setVisible(true);
@@ -354,7 +353,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
   private void setupPanels() {
     JPanel mainPanel = new JPanel(new BorderLayout());
 
-    imagePanel = new ImagePanel(null);
+    imagePanel = new JPanel();
     imageScrollPane = new JScrollPane(imagePanel);
     imagePanel.setPreferredSize(new Dimension(800, 600));
     mainPanel.add(imageScrollPane, BorderLayout.CENTER);
