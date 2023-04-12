@@ -125,6 +125,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
     saveImage.addActionListener(e -> saveImageChooser(fileName -> {
       try {
         f.saveImageToFile(fileName);
+        System.out.println("Saving image.");
       } catch (IOException ex) {
         //
       } catch (IllegalStateException ex) {
@@ -264,7 +265,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
   public void addImageToLayerChooser(Consumer<File> fileConsumer) {
     JFileChooser imageChooser = new JFileChooser();
     FileFilter filter = new FileFilter() {
-      private final String[] allowedExtensions = {".ppm" , "jpg", "jpeg", "png"};
+      private final String[] allowedExtensions = {".ppm" , ".jpg", ".jpeg", ".png"};
 
       @Override
       public boolean accept(File file) {
@@ -273,7 +274,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
 
       @Override
       public String getDescription() {
-        return "PPM Files (*.ppm)";
+        return "PPM, JPEG, PNG Files";
       }
     };
 
@@ -477,8 +478,8 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
 
     if (userSelection == JFileChooser.APPROVE_OPTION) {
       File fileToSave = fileChooser.getSelectedFile();
-      String desiredExtension = ".ppm";
-      fileToSave = addFileExtensionIfNeeded(fileToSave, desiredExtension);
+      // String desiredExtension = ".ppm";
+      // fileToSave = addFileExtensionIfNeeded(fileToSave, desiredExtension);
       fileConsumer.accept(fileToSave);
     }
   }

@@ -120,6 +120,7 @@ public class CollageGuiController implements Features {
    */
   @Override
   public void saveImageToFile(File fileName) throws IOException {
+    System.out.println("Saving: " + fileName.toString());
     model.saveImage(fileName.toString());
   }
 
