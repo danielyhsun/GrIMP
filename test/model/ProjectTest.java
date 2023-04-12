@@ -42,7 +42,7 @@ public class ProjectTest {
     try {
       project.addImageToLayer("Layer1", new File("grogu.ppm"), 0, 0);
       Image image = new Image(new File("grogu.ppm"));
-      image.readPPM();
+      image.readImage();
       assertEquals(project.layers.get("Layer1").getPixels(), image.getPixels());
     } catch (IOException e) {
       fail();

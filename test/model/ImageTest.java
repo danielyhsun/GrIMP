@@ -21,7 +21,7 @@ public class ImageTest {
     Image i = new Image(file);
 
     try {
-      i.readPPM();
+      i.readImage();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

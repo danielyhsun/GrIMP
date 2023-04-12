@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import javax.imageio.ImageIO;
+
 import static model.Project.MAX_CLAMP;
 
 /**
@@ -157,25 +159,41 @@ public class CollageModelImpl implements CollageModel {
       throw new IllegalStateException("No project is currently open!");
     }
     try {
-      int height = currentProject.getCanvasHeight();
-      int width = currentProject.getCanvasWidth();
+      String fileType = filePath.substring(filePath.indexOf(".") + 1);
 
-      FileWriter writer = new FileWriter(filePath);
-      writer.write("P3\n");
-      writer.write(width + " " + height + "\n");
-      writer.write(MAX_CLAMP + "\n");
+      if (fileType.equalsIgnoreCase("ppm")) {
+        int height = currentProject.getCanvasHeight();
+        int width = currentProject.getCanvasWidth();
 
-      Pixel[][] finalImage = currentProject.layersToImage();
+        FileWriter writer = new FileWriter(filePath);
+        writer.write("P3\n");
+        writer.write(width + " " + height + "\n");
+        writer.write(MAX_CLAMP + "\n");
 
-      for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-          Pixel pixel = finalImage[i][j];
-          writer.write(pixel.r + " " + pixel.g + " " + pixel.b + " ");
+        Pixel[][] finalImage = currentProject.layersToImage();
+
+        for (int i = 0; i < height; i++) {
+          for (int j = 0; j < width; j++) {
+            Pixel pixel = finalImage[i][j];
+            writer.write(pixel.r + " " + pixel.g + " " + pixel.b + " ");
+          }
+          writer.write("\n");
         }
-        writer.write("\n");
+        writer.close();
       }
-      writer.close();
+      else {
+        BufferedImage temp = this.getCollageImage();
+        BufferedImage current = new BufferedImage(temp.getWidth(),
+                temp.getHeight(), BufferedImage.TYPE_INT_RGB);
+        for (int i = 0; i < temp.getHeight(); i++) {
+          for (int j = 0; j < temp.getWidth(); j++) {
+            current.setRGB(j, i, temp.getRGB(j, i));
+          }
+        }
 
+        File out = new File(filePath);
+        ImageIO.write(current, fileType, out);
+      }
     } catch (IOException e) {
       throw new IOException("Unable to save image!");
     }

@@ -8,6 +8,8 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.io.File;
+import java.io.IOException;
 
 
 import model.CollageModel;
@@ -16,7 +18,9 @@ import view.CollageGuiView;
 import view.CollageGuiViewImpl;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Test class for GUI Controller class.
@@ -75,6 +79,245 @@ public class CollageGuiControllerTest {
     controller.addNewLayer("layer");
     controller.changeSelectedLayer("layer");
     assertEquals(model.getSelectedLayer(), "layer");
+  }
+
+  /**
+   * Test loading a ppm image.
+   */
+  @Test
+  public void testLoadPPM() {
+    CollageModel model = new CollageModelImpl();
+    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiController controller = new CollageGuiController(model, view);
+
+    controller.newProject(500, 500);
+    controller.addNewLayer("layer");
+    controller.changeSelectedLayer("layer");
+
+    File file = new File("/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubl.ppm");
+    try {
+      BufferedImage before = model.getCollageImage();
+      controller.addImageToLayerFromFile(file, 100, 100);
+      BufferedImage after = model.getCollageImage();
+
+      assertNotEquals(before, after);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * Test loading a jpeg image.
+   */
+  @Test
+  public void testLoadJPEG() {
+    CollageModel model = new CollageModelImpl();
+    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiController controller = new CollageGuiController(model, view);
+
+    controller.newProject(500, 500);
+    controller.addNewLayer("layer");
+    controller.changeSelectedLayer("layer");
+
+    File file = new File(
+            "/Users/codychan/Desktop/OOD_Projects/Collage/res/groguEggs.jpeg");
+
+    try {
+      BufferedImage before = model.getCollageImage();
+      controller.addImageToLayerFromFile(file, 100, 100);
+      BufferedImage after = model.getCollageImage();
+
+      assertNotEquals(before, after);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * Test loading a png image.
+   */
+  @Test
+  public void testLoadPNG() {
+    CollageModel model = new CollageModelImpl();
+    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiController controller = new CollageGuiController(model, view);
+
+    controller.newProject(500, 500);
+    controller.addNewLayer("layer");
+    controller.changeSelectedLayer("layer");
+
+    File file = new File(
+            "/Users/codychan/Desktop/OOD_Projects/Collage/res/groguEggsTwo.png");
+
+    try {
+      BufferedImage before = model.getCollageImage();
+      controller.addImageToLayerFromFile(file, 100, 100);
+      BufferedImage after = model.getCollageImage();
+
+      assertNotEquals(before, after);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * Test saving a PPM image.
+   */
+  @Test
+  public void testSavePPM() {
+    CollageModel model = new CollageModelImpl();
+    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiController controller = new CollageGuiController(model, view);
+
+    controller.newProject(500, 500);
+    controller.addNewLayer("layer");
+    controller.changeSelectedLayer("layer");
+
+    File file = new File("/Users/codychan/Desktop/OOD_Projects/Collage/res/testSave.ppm");
+    try {
+      controller.saveImageToFile(file);
+      assertTrue(new File(
+              "/Users/codychan/Desktop/OOD_Projects/Collage/res/testSave.ppm").exists());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * Test saving a JPG image.
+   */
+  @Test
+  public void testSaveJPG() {
+    CollageModel model = new CollageModelImpl();
+    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiController controller = new CollageGuiController(model, view);
+
+    controller.newProject(500, 500);
+    controller.addNewLayer("layer");
+    controller.changeSelectedLayer("layer");
+
+    File file = new File("/Users/codychan/Desktop/OOD_Projects/Collage/res/testSave.jpg");
+    try {
+      controller.saveImageToFile(file);
+      assertEquals(true, new File(
+              "/Users/codychan/Desktop/OOD_Projects/Collage/res/testSave.jpg").exists());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * Test saving a PNG image.
+   */
+  @Test
+  public void testSavePNG() {
+    CollageModel model = new CollageModelImpl();
+    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiController controller = new CollageGuiController(model, view);
+
+    controller.newProject(500, 500);
+    controller.addNewLayer("layer");
+    controller.changeSelectedLayer("layer");
+
+    File file = new File("/Users/codychan/Desktop/OOD_Projects/Collage/res/testSave.PNG");
+    try {
+      controller.saveImageToFile(file);
+      assertEquals(true, new File(
+              "/Users/codychan/Desktop/OOD_Projects/Collage/res/testSave.PNG").exists());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * Test loading and saving using different image formats.
+   * PPM -> JPG.
+   */
+  @Test
+  public void testPPMtoJPG() {
+    CollageModel model = new CollageModelImpl();
+    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiController controller = new CollageGuiController(model, view);
+
+    controller.newProject(500, 500);
+    controller.addNewLayer("layer");
+    controller.changeSelectedLayer("layer");
+
+    File ppmFile = new File(
+            "/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubl.ppm");
+    File jpgFile = new File(
+            "/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubl.jpg");
+
+    try {
+      controller.addImageToLayerFromFile(ppmFile, 100, 100);
+      controller.saveImageToFile(jpgFile);
+
+      assertTrue(new File(
+              "/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubl.jpg").exists());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * Test loading and saving using different image formats.
+   * JPG -> PNG.
+   */
+  @Test
+  public void testJPGtoPNG() {
+    CollageModel model = new CollageModelImpl();
+    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiController controller = new CollageGuiController(model, view);
+
+    controller.newProject(500, 500);
+    controller.addNewLayer("layer");
+    controller.changeSelectedLayer("layer");
+
+    File jpgFile = new File(
+            "/Users/codychan/Desktop/OOD_Projects/Collage/res/groguEggs.jpeg");
+    File pngFile = new File(
+            "/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubl.png");
+
+    try {
+      controller.addImageToLayerFromFile(jpgFile, 100, 100);
+      controller.saveImageToFile(pngFile);
+
+      assertTrue(new File(
+              "/Users/codychan/Desktop/OOD_Projects/Collage/res/grogubl.png").exists());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  /**
+   * Test loading and saving using different image formats.
+   * PNG -> PPM.
+   */
+  @Test
+  public void testPNGtoPPM() {
+    CollageModel model = new CollageModelImpl();
+    CollageGuiView view = new CollageGuiViewImpl(model);
+    CollageGuiController controller = new CollageGuiController(model, view);
+
+    controller.newProject(500, 500);
+    controller.addNewLayer("layer");
+    controller.changeSelectedLayer("layer");
+
+    File pngFile = new File(
+            "/Users/codychan/Desktop/OOD_Projects/Collage/res/groguEggsTwo.png");
+    File ppmFile = new File(
+            "/Users/codychan/Desktop/OOD_Projects/Collage/res/groguEggsTwo.ppm");
+
+    try {
+      controller.addImageToLayerFromFile(pngFile, 100, 100);
+      controller.saveImageToFile(ppmFile);
+
+      assertEquals(true, new File(
+                      "/Users/codychan/Desktop/OOD_Projects/Collage/res/groguEggsTwo.ppm").
+              exists());
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
 }

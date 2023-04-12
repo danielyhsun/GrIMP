@@ -264,7 +264,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
   public void addImageToLayerChooser(Consumer<File> fileConsumer) {
     JFileChooser imageChooser = new JFileChooser();
     FileFilter filter = new FileFilter() {
-      private final String[] allowedExtensions = {".ppm"};
+      private final String[] allowedExtensions = {".ppm" , "jpg", "jpeg", "png"};
 
       @Override
       public boolean accept(File file) {

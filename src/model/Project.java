@@ -78,7 +78,7 @@ public class Project {
 
     Layer layer = layers.get(layerName);
     Image image = new Image(file);
-    image.readPPM();
+    image.readImage();
 
     Pixel[][] layerPixels = layer.getPixels();
     Pixel[][] imagePixels = image.getPixels();
