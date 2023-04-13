@@ -33,7 +33,6 @@ import javax.swing.ListSelectionModel;
 import javax.swing.filechooser.FileFilter;
 
 import controller.Features;
-import model.CollageModel;
 
 /**
  * An implementation of the CollageGuiView interface. Represents an application GUI window

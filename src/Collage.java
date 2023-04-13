@@ -46,8 +46,8 @@ public final class Collage {
       } catch (IOException e) {
         System.err.println("Error reading script file: " + e.getMessage());
         System.exit(1);
-    }
-    System.exit(0);
+      }
+      System.exit(0);
     } else {
       System.err.println("Invalid command-line arguments!");
       System.exit(1);

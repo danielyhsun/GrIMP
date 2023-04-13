@@ -83,8 +83,26 @@ you can either type or copy and paste the script into the console. View script f
 valid commands.
 ---
 
+### Part Three Additions:
+
+For the additional functionality of loading and saving png and jpg images, we were able to implement
+functionality by directly adding the code into the load and save functions in the project and 
+model implementation class. This way the handling of ppms, jpgs, and pngs are all in one place.
+
 ### Decoupling:
 
+- CollageView : Text View interface
+- CollageViewImpl : Text View implementation
+- CollageModel : Model interface
+- For our text view you need to send the CollageModel interface because it requires it in order to 
+compile.
+- CollageGuiView : Gui View interface
+- CollageGuiViewImpl : Gui View implementation
+- Features : Actions Interface
+- For the GUI view you only need to send the Features interface because the GUI components run
+methods in the Features when an action event occurs.
+
+For both of these views only interfaces are required in order to compile without errors. 
 
 ### Citations:
 **Grogu Image:**

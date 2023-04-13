@@ -40,3 +40,8 @@
 - Image - Save, Add Image To Layer
 - Add Layer - Input Layer Name
 - Filter dropdown - Filter options
+
+### Part Three
+
+- No additional visual components were added. Only the functionality to load and save jpg and 
+- png images

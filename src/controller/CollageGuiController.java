@@ -3,8 +3,7 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 
-import model.CollageIOModel;
-import model.CollageIOModelImpl;
+
 import model.CollageModel;
 import view.CollageGuiView;
 
