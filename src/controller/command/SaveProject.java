@@ -23,7 +23,7 @@ public class SaveProject implements CollageCommand {
   /**
    * Runs the saveProject() method on the model with the given inputs.
    *
-   * @param model represents the model.
+   * @param model represents the model object.
    * @throws IOException if the filePath is invalid.
    */
   @Override

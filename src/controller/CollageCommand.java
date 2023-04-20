@@ -6,6 +6,7 @@ import model.CollageModel;
 
 /**
  * Interface represents commands for image processing.
+ * Example is "new-project" command.
  */
 public interface CollageCommand {
 

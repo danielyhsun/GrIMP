@@ -71,7 +71,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
 
   /**
    * Add listeners for GUI Elements.
-   * @param f the Features object
+   * @param f the Features object.
    */
   public void addFeatures(Features f) {
     // new project listener
@@ -154,7 +154,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
    * Shows a dialog when the Add Layer button is pressed. Contains a text field
    * to take a string input for the new layer's name, and a "Create" button that
    * closes the dialog. Takes in a string Consumer that accepts the dialog's input.
-   * @param onLayerCreated a String consumer
+   * @param onLayerCreated a String consumer.
    */
   public void newLayerDialog(Consumer<String> onLayerCreated) {
     addLayerDialog = new JDialog(this, "New Layer", true);
@@ -181,7 +181,7 @@ public class CollageGuiViewImpl extends JFrame implements CollageGuiView {
    * Shows a dialog when the New Project menu item is pressed. Contains two text fields
    * to take in height and width input for the project canvas dimensions, and a "Create" button
    * that closes the dialog. Takes in a BiConsumer that accepts the height and width inputs.
-   * @param createProjectCallback the BiConsumer
+   * @param createProjectCallback the BiConsumer.
    */
   public void newProjectDialog(BiConsumer<Integer, Integer> createProjectCallback) {
     newProjectDialog = new JDialog(this, "New Project", true);

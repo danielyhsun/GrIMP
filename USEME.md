@@ -1,5 +1,48 @@
 # Collage Program
 
+### How to use Text View:
+
+- Using the jar file, or by running the program else where, locate the command line
+- Input valid commands into command line
+- Here are a list of valid commands:
+- new-project (int) (int)
+- add-layer (string)
+- add-image-to-layer (string) (file) (int) (int)
+- set-filter (string) (filter)
+- save-image (string)
+- save-project (string)
+- load-project (string)
+- quit
+- Here are a list of valid filter options:
+- filter-blue
+- filter-red
+- filter-green
+- brighten-value
+- brighten-intensity
+- brighten-luma
+- darken-value
+- darken-intensity
+- darken-luma
+- blend-difference
+- blend-multiply
+- blend-screen
+- Normal
+
+---
+
+### Example on how to use Text View:
+
+- Start by running a command to open a new project "new-project 500 500"
+- Add a layer to the project called "grogublue" "add-layer bottom"
+- Add an image to the layer "grogublue res/grogu.ppm 0 0"
+- Add a filter to the image "set-filter grogublue filter-blue"
+- Try a different filter "set-filter grogublue blend-difference"
+- Save the image as a png "save-image grogublue.png"
+- Save the whole project "save-project grogucollage.clg"
+- If you ever need the project again "load-project grogucollage.clg"
+
+---
+
 ### How to use GUI:
 
 - The top left button marked file can be clicked to allow for a drop-down with the following options

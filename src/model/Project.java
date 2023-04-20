@@ -295,8 +295,11 @@ public class Project {
     return compositeImage;
   }
 
-
-  // create a deep copy of a Pixel[][] to apply operations without affecting the original
+  /**
+   * Creates a deep copy of a Pixel[][] to apply operations without affecting the original.
+   * @param originalPixels represents original array of image.
+   * @return a copy of the pixel array.
+   */
   private Pixel[][] deepCopyPixels(Pixel[][] originalPixels) {
     int height = originalPixels.length;
     int width = originalPixels[0].length;
@@ -331,6 +334,11 @@ public class Project {
     return this.canvasWidth;
   }
 
+  /**
+   * Changes the selected layer.
+   * @param layer represents the new layer that is going to be selected.
+   * @throws IllegalArgumentException if layer does not exist.
+   */
   protected void setSelectedLayer(String layer) throws IllegalArgumentException {
     if (layers.containsKey(layer)) {
       selectedLayer = layer;
@@ -339,10 +347,18 @@ public class Project {
     }
   }
 
+  /**
+   * Gets the current selected layer.
+   * @return the selected layer for this project.
+   */
   protected String getSelectedLayer() {
     return selectedLayer;
   }
 
+  /**
+   * Builds and returns a BufferedImage for this current project.
+   * @return BufferedImage representation for this project.
+   */
   protected BufferedImage getCollageImage() {
     if (canvasWidth <= 0 || canvasHeight <= 0) {
       return null;
@@ -364,6 +380,10 @@ public class Project {
     return collageImage;
   }
 
+  /**
+   * Adds and updates the layers from the loaded project.
+   * @return layers from the loaded project.
+   */
   protected ArrayList<String> getLayersOfLoadedProject() {
     ArrayList<String> loadedLayers = new ArrayList<String>();
     for (Map.Entry<String, Layer> entry : layers.entrySet()) {

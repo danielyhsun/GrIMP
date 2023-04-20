@@ -24,7 +24,7 @@ public class SetFilter implements CollageCommand {
   /**
    * Runs the setFilter() method on the model with the given inputs.
    *
-   * @param model represents the model.
+   * @param model represents the model object.
    */
   @Override
   public void runCommand(CollageModel model) {

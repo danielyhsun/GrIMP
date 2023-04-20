@@ -25,7 +25,7 @@ public class NewProject implements CollageCommand {
   /**
    * Runs the newProject() method on the model with the given inputs.
    *
-   * @param model represents the model.
+   * @param model represents the model object.
    */
   public void runCommand(CollageModel model) {
     model.newProject(canvasHeight, canvasWidth);

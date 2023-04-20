@@ -23,7 +23,7 @@ public class SaveImage implements CollageCommand {
   /**
    * Runs the saveImage() method on the model with the given inputs.
    *
-   * @param model represents the model.
+   * @param model represents the model object.
    * @throws IOException if the filePath is invalid.
    */
   @Override

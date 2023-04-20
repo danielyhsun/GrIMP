@@ -25,7 +25,7 @@ public interface CollageGuiView {
    * Shows a dialog when the Add Layer button is pressed. Contains a text field
    * to take a string input for the new layer's name, and a "Create" button that
    * closes the dialog. Takes in a string Consumer that accepts the dialog's input.
-   * @param onLayerCreated a String consumer
+   * @param onLayerCreated a String consumer.
    */
   void newLayerDialog(Consumer<String> onLayerCreated);
 
@@ -33,7 +33,7 @@ public interface CollageGuiView {
    * Shows a dialog when the New Project menu item is pressed. Contains two text fields
    * to take in height and width input for the project canvas dimensions, and a "Create" button
    * that closes the dialog. Takes in a BiConsumer that accepts the height and width inputs.
-   * @param createProjectCallback the BiConsumer
+   * @param createProjectCallback the BiConsumer.
    */
   void newProjectDialog(BiConsumer<Integer, Integer> createProjectCallback);
 

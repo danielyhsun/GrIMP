@@ -18,8 +18,8 @@ public class CollageGuiController implements Features {
 
   /**
    * Constructor for GUI controller.
-   * @param model represents model object.
-   * @param view represents view object.
+   * @param model represents the model object.
+   * @param view represents the view object.
    */
   public CollageGuiController(CollageModel model, CollageGuiView view) {
     this.model = model;

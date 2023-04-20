@@ -11,7 +11,7 @@ public class Quit implements CollageCommand {
   /**
    * Runs the quitProject() method on the model.
    *
-   * @param model represents the model.
+   * @param model represents the model object.
    */
   public void runCommand(CollageModel model) {
     model.quitProject();

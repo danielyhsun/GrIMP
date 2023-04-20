@@ -23,7 +23,7 @@ public class LoadProject implements CollageCommand {
   /**
    * Runs the load() method on the model with the given input.
    *
-   * @param model represents the model.
+   * @param model represents the model object.
    */
   @Override
   public void runCommand(CollageModel model) throws IOException {
