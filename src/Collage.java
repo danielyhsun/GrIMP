@@ -31,13 +31,13 @@ public final class Collage {
       Features guiController = new CollageGuiController(model, guiView);
     } else if (args.length == 1 && args[0].equals("-text")) {
       CollageModel model = new CollageModelImpl();
-      CollageView view = new CollageViewImpl(model);
+      CollageView view = new CollageViewImpl();
       CollageControllerImpl controller = new CollageControllerImpl(model, view);
       controller.run();
     } else if (args.length == 2 && args[0].equals("-file")) {
       String path = args[1];
       CollageModel model = new CollageModelImpl();
-      CollageView view = new CollageViewImpl(model);
+      CollageView view = new CollageViewImpl();
       try {
         BufferedReader reader = new BufferedReader(new FileReader(path));
         CollageController controller = new CollageControllerImpl(model, view, reader);

@@ -108,7 +108,7 @@ public class CollageControllerImplTest {
   @Test
   public void controllerImplementationConstructorWorksOne() {
     CollageModel model = new CollageModelImpl();
-    CollageView view = new CollageViewImpl(model);
+    CollageView view = new CollageViewImpl();
     CollageController controller = new CollageControllerImpl(model, view);
 
     assertNotEquals(null, model);
@@ -121,7 +121,7 @@ public class CollageControllerImplTest {
   @Test (expected = IllegalArgumentException.class)
   public void testControllerImplementationConstructorModelExceptionOne() {
     CollageModel model = null;
-    CollageView view = new CollageViewImpl(model);
+    CollageView view = new CollageViewImpl();
     CollageController controller = new CollageControllerImpl(model, view);
   }
 
@@ -141,7 +141,7 @@ public class CollageControllerImplTest {
   @Test
   public void controllerImplementationConstructorWorksTwo() {
     CollageModel model = new CollageModelImpl();
-    CollageView view = new CollageViewImpl(model);
+    CollageView view = new CollageViewImpl();
     Readable readable = new InputStreamReader(System.in);
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
@@ -156,7 +156,7 @@ public class CollageControllerImplTest {
   @Test (expected = IllegalArgumentException.class)
   public void testControllerImplementationConstructorModelExceptionTwo() {
     CollageModel model = null;
-    CollageView view = new CollageViewImpl(model);
+    CollageView view = new CollageViewImpl();
     Readable readable = new InputStreamReader(System.in);
     CollageController controller = new CollageControllerImpl(model, view, readable);
   }
@@ -178,7 +178,7 @@ public class CollageControllerImplTest {
   @Test (expected = IllegalArgumentException.class)
   public void testControllerImplementationConstructorAppendableExceptionTwo() {
     CollageModel model = new CollageModelImpl();
-    CollageView view = new CollageViewImpl(model);
+    CollageView view = new CollageViewImpl();
     Readable readable = null;
     CollageController controller = new CollageControllerImpl(model, view, readable);
   }
@@ -190,7 +190,7 @@ public class CollageControllerImplTest {
   public void newProjectWorks() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
@@ -206,7 +206,7 @@ public class CollageControllerImplTest {
   public void testNewProject() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new
             StringReader("new-project 100 -100 new-project -100 100 new-project 100 -100");
     CollageController controller = new CollageControllerImpl(model, view, readable);
@@ -225,7 +225,7 @@ public class CollageControllerImplTest {
   public void addLayerWorks() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 add-layer layer");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
@@ -242,7 +242,7 @@ public class CollageControllerImplTest {
   public void testAddLayerBeforeProjectStart() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("add-layer layer");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
@@ -259,7 +259,7 @@ public class CollageControllerImplTest {
   public void addImageToLayerWorks() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 add-layer layer " +
             "add-image-to-layer " +
             "layer res/grogu.ppm 0 0");
@@ -278,7 +278,7 @@ public class CollageControllerImplTest {
   public void testAddImageToLayerWithBadImage() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 add-layer layer " +
             "add-image-to-layer layer random 0 0");
     CollageController controller = new CollageControllerImpl(model, view, readable);
@@ -296,7 +296,7 @@ public class CollageControllerImplTest {
   public void testAddImageToLayerWithBadInputs() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 add-layer layer " +
             "add-image-to-layer 0 0 layer res/grogu.ppm");
     CollageController controller = new CollageControllerImpl(model, view, readable);
@@ -315,7 +315,7 @@ public class CollageControllerImplTest {
   public void setFilterWorks() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 add-layer layer " +
             "set-filter layer brighten");
     CollageController controller = new CollageControllerImpl(model, view, readable);
@@ -333,7 +333,7 @@ public class CollageControllerImplTest {
   public void setFilterColorWorks() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 add-layer layer set-filter " +
             "layer filter-green");
     CollageController controller = new CollageControllerImpl(model, view, readable);
@@ -351,7 +351,7 @@ public class CollageControllerImplTest {
   public void testSetFilterOnInvalidLayer() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 add-layer layer1 set-filter " +
             "layer2 filter-green");
     CollageController controller = new CollageControllerImpl(model, view, readable);
@@ -369,7 +369,7 @@ public class CollageControllerImplTest {
   public void testSetFilterBeforeProjectStart() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("set-filter layer green");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
@@ -386,7 +386,7 @@ public class CollageControllerImplTest {
   public void testUnknownCommand() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 randomness");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
@@ -405,7 +405,7 @@ public class CollageControllerImplTest {
   public void testQuit() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 quit add-layer bing");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
@@ -421,7 +421,7 @@ public class CollageControllerImplTest {
   public void saveImageWorks() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 save-image grogudi.ppm");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
@@ -438,7 +438,7 @@ public class CollageControllerImplTest {
   public void testSaveImageBad() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 save-image /michelin/encore");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
@@ -455,7 +455,7 @@ public class CollageControllerImplTest {
   public void saveProjectWorks() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 add-layer layer1 " +
             "save-project CollageProj");
     CollageController controller = new CollageControllerImpl(model, view, readable);
@@ -473,7 +473,7 @@ public class CollageControllerImplTest {
   public void testSaveProjectBad() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("save-project CollageProj");
     CollageController controller = new CollageControllerImpl(model, view, readable);
 
@@ -490,7 +490,7 @@ public class CollageControllerImplTest {
   public void loadProjectWorks() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 add-layer layer1 " +
             "save-project CollageProj load-project CollageProj");
     CollageController controller = new CollageControllerImpl(model, view, readable);
@@ -509,7 +509,7 @@ public class CollageControllerImplTest {
   public void testloadProjectBad() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 save-image grogudi.ppm " +
             "load-project grogudi.ppm");
     CollageController controller = new CollageControllerImpl(model, view, readable);
@@ -527,7 +527,7 @@ public class CollageControllerImplTest {
   public void testReadCommands() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 add-layer layer1 " +
             "save-project CollageProj");
     CollageController controller = new CollageControllerImpl(model, view, readable);
@@ -545,7 +545,7 @@ public class CollageControllerImplTest {
   public void tryRenderMsgWorks() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
     Readable readable = new StringReader("new-project 100 100 new-project 100 100 " +
             "new-project 100 100");
     CollageController controller = new CollageControllerImpl(model, view, readable);

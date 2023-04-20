@@ -22,7 +22,7 @@ public class CollageTest {
 
 
     model = new CollageModelImpl();
-    view = new CollageViewImpl(model, System.out);
+    view = new CollageViewImpl(System.out);
     read = new InputStreamReader(System.in);
     controller = new CollageControllerImpl(model, view, read);
   }

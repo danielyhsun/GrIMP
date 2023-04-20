@@ -22,7 +22,7 @@ public class CollageViewImplTest {
   @Test
   public void viewConstructorWorks() {
     CollageModel model = new CollageModelImpl();
-    CollageView view = new CollageViewImpl(model);
+    CollageView view = new CollageViewImpl();
 
     assertNotEquals(null, view);
   }
@@ -33,7 +33,7 @@ public class CollageViewImplTest {
   @Test (expected = IllegalArgumentException.class)
   public void testViewConstructorNullModel() {
     CollageModel model = null;
-    CollageView view = new CollageViewImpl(model);
+    CollageView view = new CollageViewImpl();
   }
 
   /**
@@ -43,7 +43,7 @@ public class CollageViewImplTest {
   public void viewConstructorTwoWorks() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
 
     assertNotEquals(null, view);
   }
@@ -55,7 +55,7 @@ public class CollageViewImplTest {
   public void testViewConstructorTwoGivenNullModel() {
     CollageModel model = null;
     Appendable appendable = new StringBuilder();
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
   }
 
   /**
@@ -65,7 +65,7 @@ public class CollageViewImplTest {
   public void testViewConstructorTwoGivenNullAppendable() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = null;
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
   }
 
   /**
@@ -75,7 +75,7 @@ public class CollageViewImplTest {
   public void renderMessageWorks() {
     CollageModel model = new CollageModelImpl();
     Appendable appendable = new StringBuilder("Hello");
-    CollageView view = new CollageViewImpl(model, appendable);
+    CollageView view = new CollageViewImpl(appendable);
 
     try {
       view.renderMessage("Hello");

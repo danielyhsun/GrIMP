@@ -1,0 +1,17 @@
+What files do you need to send along for only the views to compile? This list must include the
+interfaces and implementations for the view itself.
+- CollageView
+- CollageViewImpl
+- CollageGuiView
+- CollageGuiViewImpl
+- Features
+
+For each file, briefly explain why that file is necessary for the view to work.
+- CollageView: Necessary because it is the interface that represents the text-based view
+- CollageViewImpl: Necessary because it is the implementation of the text-based view
+- CollageGuiView: Necessary because it is the interface that represents the graphical user interface
+view
+- CollageGuiViewImpl: Necessary because it is the implementation of the graphical user interface
+- Features: Necessary because the Features interface is used to handle action events from the
+graphical user interface, where the GUI has action listeners for GUI components that run functions
+in the Features interface.

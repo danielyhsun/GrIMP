@@ -375,8 +375,6 @@ public class Project {
         collageImage.setRGB(j, i, argb);
       }
     }
-
-    System.out.println("hello!");
     return collageImage;
   }
 

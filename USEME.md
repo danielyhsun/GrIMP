@@ -1,4 +1,4 @@
-# Collage Program
+# GrIMP User Guide
 
 ### How to use Text View:
 
@@ -45,7 +45,7 @@
 
 ### How to use GUI:
 
-- The top left button marked file can be clicked to allow for a drop-down with the following options
+- The top left button marked 'File' can be clicked to allow for a drop-down with the following options
 - From here there are two options that you can hover over: Project or Image.
 - Project will allow you to either open, save, load, or quit a project.
 - Image with allow to save or add an image to layer.

@@ -9,38 +9,29 @@ import model.CollageModel;
  * object.
  */
 public class CollageViewImpl implements CollageView {
-  private CollageModel model;
   private Appendable appendable;
 
   /**
-   * Constructor for view implementation that takes in only the model.
-   *
-   * @param model represents image processing model.
-   * @throws IllegalArgumentException if given null model.
+   * Constructor for view implementation that initializes the appendable object to System.out.
    */
-  public CollageViewImpl(CollageModel model) throws IllegalArgumentException {
-    if (model == null) {
-      throw new IllegalArgumentException("Model given is null.");
-    }
+  public CollageViewImpl() {
 
-    this.model = model;
     this.appendable = System.out;
   }
 
   /**
-   * Constructor for view implementation if given both model and appendable object.
+   * Constructor for view implementation that initializes the appendable object to the given
+   * appendable object.
    *
-   * @param model represents image processing model.
-   * @param appendable represents appendable object.
+   * @param appendable the appendable object.
    * @throws IllegalArgumentException if given null model or null appendable.
    */
-  public CollageViewImpl(CollageModel model, Appendable appendable)
+  public CollageViewImpl(Appendable appendable)
           throws IllegalArgumentException {
-    if (model == null || appendable == null) {
+    if (appendable == null) {
       throw new IllegalArgumentException("Given null inputs.");
     }
 
-    this.model = model;
     this.appendable = appendable;
   }
 

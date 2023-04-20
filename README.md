@@ -1,7 +1,59 @@
-# Collage Program
+# GrIMP
+## Overview
+GrIMP (Grogu Image Manipulation Program) is a versatile and user-friendly desktop image 
+manipulation program designed for both beginners and experienced users. With an intuitive interface
+and a wide range of powerful features, GrIMP allows users to create stunning multi-layered image 
+collages with ease. Supporting a variety of popular image formats such as PPM, JPEG, and PNG, GrIMP 
+caters to a broad range of creative projects. The program's core functionality includes 
+comprehensive project management, a multitude of image manipulation tools, and seamless file 
+import/export capabilities. GrIMP offers both a text-based command-line scripting interface and a 
+graphical user interface using Java Swing components, making it accessible to users of all skill 
+levels. Whether you're a hobbyist or a professional, GrIMP is an essential tool for all your 
+image manipulation needs.
 
-## Part 1:
+### Features:
+**Currently Available:**
+The program currently supports the following features:
 
+Project Management
+- Creating new projects
+- Loading previously saved projects
+- Saving projects to files with a custom ".clg" extension
+- Quitting projects
+- Adding layers with custom names
+
+Image Manipulation
+- Single Color Filters (Red, Green, Blue)
+- Brightening & Darkening Filters (Value, Intensity, Luma)
+- Blending Modes (Difference, Multiply, Screen)
+
+File & Image Import/Export
+- Adding images to layers
+- Saving images to multiple file types: PPM, JPEG, PNG
+
+Multiple User Interfaces
+- Text-based command-line scripting interface
+- Graphical user interface using Java Swing components
+
+Unavailable:
+
+
+---
+
+## Requirements/Dependencies
+- Java 11 or higher JRE
+- JUnit 4 for running tests
+
+
+## Documentation and Support
+Detailed documentation on how to use GrIMP and a list of currently available text-based scripting 
+commands can be found in the 'USEME.md' file. Additionally, for any questions, bug reports, or
+feature suggestions, please visit the GrIMP GitHub repository and submit an issue.
+
+
+---
+
+## Code Design
 ### Main:
 Collage class: Contains the main method where the program is started.
 
@@ -87,7 +139,7 @@ valid commands.
 
 For the additional functionality of loading and saving png and jpg images, we were able to implement
 functionality by directly adding the code into the load and save functions in the project and 
-model implementation class. This way the handling of ppms, jpgs, and pngs are all in one place.
+model implementation class. This way the handling of ppm's, jpgs, and pngs are all in one place.
 
 ### Decoupling:
 
