@@ -5,7 +5,8 @@ import java.io.IOException;
 import model.CollageModel;
 
 /**
- * View implementation of image processing interface.
+ * View implementation of image processing interface. Capable of rending messages using appendable
+ * object.
  */
 public class CollageViewImpl implements CollageView {
   private CollageModel model;

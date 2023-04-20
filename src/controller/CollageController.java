@@ -1,7 +1,8 @@
 package controller;
 
 /**
- * Represents controller for ImageProcessing.
+ * Represents controller interface for ImageProcessing. Controller is used to take in user input
+ * and run commands / operations.
  */
 public interface CollageController {
 

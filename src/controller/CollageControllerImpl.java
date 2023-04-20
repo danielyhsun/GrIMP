@@ -20,7 +20,8 @@ import model.CollageModel;
 import view.CollageView;
 
 /**
- * Represents implementation of controller interface.
+ * Represents implementation of controller interface which wil take in user commands and determine
+ * which operations to run. An example is adding a layer to the project.
  */
 public class CollageControllerImpl implements CollageController {
 
@@ -149,7 +150,7 @@ public class CollageControllerImpl implements CollageController {
   }
 
   /**
-   * Renders message by appending.
+   * Renders message by appending through the view object.
    * @param message string holding message.
    * @throws RuntimeException if unable to transmit message.
    */
